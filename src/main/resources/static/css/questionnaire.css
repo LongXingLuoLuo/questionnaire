@@ -1,0 +1,52 @@
+form {
+    width: 60%;
+    border: black 2px solid;
+    margin: 1% auto;
+    padding: 1% 10%;
+}
+
+label {
+    font-size: large;
+}
+
+.professional-div, .evaluation-curriculum-div, .evaluation-teacher-div, .evaluation-self-div {
+    margin-top: 10%;
+}
+
+/*滑轨样式*/
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    border-radius: 0.16%;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 160%;
+    width: 25px;
+    margin-top: -5px; /*使滑块超出轨道部分的偏移量相等*/
+    background: #ffffff;
+    border-radius: 50%; /*外观设置为圆形*/
+    border: solid 0.125em rgba(205, 224, 230, 0.5); /*设置边框*/
+    box-shadow: 0 .125em .125em #3b4547; /*添加底部阴影*/
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 15px;
+    border-radius: 10px;
+    box-shadow: 0 1px 1px #def3f8, inset 0 .125em .125em #0d1112;
+}
+
+/*选中时样式删除*/
+input[type="range"]:focus {
+    outline: none;
+}
+
+.evaluation-show{
+    position: relative;
+    width: 10%;
+    height: auto;
+    text-align: center;
+    pointer-events: none
+}
