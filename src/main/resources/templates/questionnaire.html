@@ -3,40 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>调查问卷</title>
-    <link rel="stylesheet" href="/css/bootstrap_3.3.7_css_bootstrap.css">
-    <script src="/js/jquery_2.1.1_jquery.js"></script>
-    <script src="/js/bootstrap_3.3.7_js_bootstrap.js"></script>
-    <script type="text/javascript" src="/js/questionnaire.js"></script>
-    <link rel="stylesheet" href="/css/questionnaire.css">
+    <link rel="stylesheet" th:href="@{/css/bootstrap_3.3.7_css_bootstrap.css}"
+          href="../static/css/bootstrap_3.3.7_css_bootstrap.css">
+    <script type="text/javascript" th:src="@{/js/jquery_2.1.1_jquery.js}"
+            src="../static/js/jquery_2.1.1_jquery.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
+            src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
+    <script type="text/javascript" th:src="@{/js/questionnaire.js}" src="../static/js/questionnaire.js"></script>
+    <link rel="stylesheet" th:href="@{/css/questionnaire.css}" href="../static/css/questionnaire.css">
 </head>
 <body class="text-center">
 <div class="title">
     <h1>北科大教学评价问卷</h1>
 </div>
 <form class="form-horizontal" id="questionnaire-form">
-    <input type="hidden" name="questionnaire-id" th:value="${questionnaireId}">
     <div class="form-content text-left">
+        <!-- 表单 id -->
+        <input type="hidden" name="questionnaire-id" value="1" th:value="${questionnaireId}">
         <div class="professional-div form-group">
             <label for="self-professional">
                 请输入您的专业：
             </label>
-            <input type="text" name="self-professional" id="self-professional" class="input-text form-control" placeholder="请输入您的专业名称">
+            <input type="text" name="self-professional" id="self-professional" class="input-text form-control"
+                   placeholder="请输入您的专业名称">
         </div>
         <!-- 课程评价 -->
-        <div class="evaluation-curriculum-div form-group">
-            <label for="curriculum-01" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span class="evaluation-value"></span>&nbsp;分
+        <div class="evaluation-curriculum-div form-group" th:each="curriculum : ${curriculumList}">
+            <label for="curriculum-01" th:for="'curriculum-' + ${curriculum.getId()}" title="分数越高，代表评价越高">
+                清选择您对&nbsp;<span class="evaluation-name" th:text="${curriculum.getName()}">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span class="evaluation-value"></span>&nbsp;分
             </label>
-            <input type="range" min="0" max="10" step="1" name="curriculum-01" id="curriculum-01" value="5">
-            <label class="evaluation-show">张xx</label>
+            <input type="range" min="0" max="10" step="1" name="curriculum-01" id="curriculum-01"
+                   th:name="'curriculum-' + ${curriculum.getId()}" th:id="'curriculum-' + ${curriculum.getId()}"
+                   value="5"/>
+            <label class="evaluation-show" th:text="${curriculum.getName()}">大学物理</label>
         </div>
         <!-- 教师评价 -->
-        <div class="evaluation-teacher-div form-group">
-            <label for="teacher-01" title="分数越高，代表评价越高">
+        <div class="evaluation-teacher-div form-group" th:each="teacher : ${teacherList}">
+            <label for="teacher-01" th:for="'teacher-' + ${teacher.getId()}" title="分数越高，代表评价越高">
                 清选择您对&nbsp;<span class="evaluation-name">张xx</span>&nbsp;的教师评价为:&nbsp;&nbsp;<span class="evaluation-value"></span>&nbsp;分
             </label>
-            <input type="range" min="0" max="10" step="1" name="teacher-01" id="teacher-01" value="5">
-            <label class="evaluation-show">张xx</label>
+            <input type="range" min="0" max="10" step="1" name="teacher-01" id="teacher-01"
+                   th:name="'teacher-' + ${teacher.getId()}" th:id="'teacher-' + ${teacher.getId()}" value="5">
+            <label class="evaluation-show" th:text="${teacher.getName()}">张xx</label>
         </div>
         <!-- 自我评价 -->
         <div class="evaluation-self-div form-group">
@@ -44,7 +52,7 @@
                 清选择您对&nbsp;<span class="evaluation-name">自己成绩排名</span>&nbsp;的评价为:&nbsp;&nbsp;排名在前&nbsp;<span class="evaluation-value"></span>%
             </label>
             <input type="range" min="5" max="100" step="5" name="self-evaluation" id="self-evaluation" value="5">
-            <label class="evaluation-show">张xx</label>
+            <label class="evaluation-show">自我评价</label>
         </div>
     </div>
 </form>

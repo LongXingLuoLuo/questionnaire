@@ -30,11 +30,11 @@ public class QuestionnaireController {
     @RequestMapping(value = "/id/{questionnaireId}", method = RequestMethod.GET)
     public String visitQuestionnaire(@PathVariable("questionnaireId")Long questionnaireId, Model model){
         List<Curriculum> curriculumList = new ArrayList<>();
-        curriculumList.add(new Curriculum(1L, "c1"));
-        curriculumList.add(new Curriculum(2L, "c2"));
+        curriculumList.add(new Curriculum(1L, "curriculum1"));
+        curriculumList.add(new Curriculum(2L, "curriculum2"));
         List<Teacher> teacherList = new ArrayList<>();
-        teacherList.add(new Teacher(1L, "t1"));
-        teacherList.add(new Teacher(2L, "t2"));
+        teacherList.add(new Teacher(1L, "teacher1"));
+        teacherList.add(new Teacher(2L, "teacher2"));
         model.addAttribute("questionnaireId", questionnaireId);
         model.addAttribute("curriculumList", curriculumList);
         model.addAttribute("teacherList", teacherList);
