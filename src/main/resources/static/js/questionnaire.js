@@ -46,8 +46,8 @@ function peekHex(color1, color2, weight) {
     return rgbToHex(rgb);
 }
 
-const color1 = [0x67, 0xF9, 0xD4];
-const color2 = [0xFF, 0x95, 0x54];
+const color1 = [0xC2, 0xFF, 0xDB];
+const color2 = [0x46, 0x5E, 0xFB];
 
 function evaluationDivInit(oDiv, min, max, step, value) {
     let oRange = $(oDiv).find(":in-range");
