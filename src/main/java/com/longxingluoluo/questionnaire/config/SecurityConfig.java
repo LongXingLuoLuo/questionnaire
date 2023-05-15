@@ -54,7 +54,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/index")
-                .failureUrl("/login");
+                .failureUrl("/login")
+                .permitAll();
         http.rememberMe()
                 .alwaysRemember(true)
                 .key("123123");
