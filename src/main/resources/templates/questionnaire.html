@@ -53,7 +53,7 @@
         <!-- 课程评价 -->
         <div class="evaluation-curriculum-div ques-div form-group" th:each="curriculum : ${curriculumList}">
             <label for="curriculum-01" th:for="'curriculum-' + ${curriculum.getId()}" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name" th:text="${curriculum.getName()}">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span
+                请选择您对&nbsp;<span class="evaluation-name" th:text="${curriculum.getName()}">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span
                     class="evaluation-value"></span>&nbsp;分
             </label>
             <input type="range" min="0" max="10" step="1" name="curriculum-01" id="curriculum-01"
@@ -64,7 +64,7 @@
         <!-- 教师评价 -->
         <div class="evaluation-teacher-div ques-div form-group" th:each="teacher : ${teacherList}">
             <label for="teacher-01" th:for="'teacher-' + ${teacher.getId()}" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name" th:text="${teacher.getName()}">张xx</span>&nbsp;的教师评价为:&nbsp;&nbsp;<span
+                请选择您对&nbsp;<span class="evaluation-name" th:text="${teacher.getName()}">张xx</span>&nbsp;的教师评价为:&nbsp;&nbsp;<span
                     class="evaluation-value"></span>&nbsp;分
             </label>
             <input type="range" min="0" max="10" step="1" name="teacher-01" id="teacher-01"
@@ -74,7 +74,7 @@
         <!-- 自我评价 -->
         <div class="evaluation-self-div ques-div form-group">
             <label for="self-evaluation">
-                清选择您对&nbsp;<span class="evaluation-name">自己成绩排名</span>&nbsp;的评价为:&nbsp;&nbsp;排名在前&nbsp;<span
+                请选择您对&nbsp;<span class="evaluation-name">自己成绩排名</span>&nbsp;的评价为:&nbsp;&nbsp;排名在前&nbsp;<span
                     class="evaluation-value"></span>%
             </label>
             <input type="range" min="5" max="100" step="5" name="self-evaluation" id="self-evaluation" value="5">
