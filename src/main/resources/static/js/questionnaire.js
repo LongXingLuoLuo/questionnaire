@@ -38,12 +38,22 @@ function evaluationDivInit(oDiv, min, max, step, value) {
     oRange.attr("min", min);
     oRange.attr("max", max);
     oRange.attr("step", step);
+    const diameter = 25;
     oRange.on("input property-change", () => {
+        let leftOffset = oRange.position().left + diameter / 2 + oRange.width() * (oRange.val() - min) / (max - min) * (1 - diameter / oRange.width()) - oShow.width() / 2;
+        let topOffset = oRange.position().top - oShow.height() - 12;
+        oShow.css("left", leftOffset + "px");
+        oShow.css("top", topOffset  + "px");
         oValue.text(oRange.val());
         oRange.css('background', 'linear-gradient(to right, white, #05FA9C ' + (oRange.val() - min) / (max - min) * 100 + '%, white 0%, white)');
+        oShow.show();
     }).val(value);
+    oRange.focusout(function () {
+        oShow.hide();
+    })
     oValue.text(oRange.val());
     oRange.css('background', 'linear-gradient(to right, white, #05FA9C ' + (oRange.val() - min) / (max - min) * 100 + '%, white 0%, white)');
+    oShow.hide();
 }
 
 $(function () {

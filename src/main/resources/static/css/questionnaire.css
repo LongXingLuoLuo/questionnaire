@@ -1,16 +1,40 @@
 form {
     width: 60%;
-    border: black 2px solid;
+    /*border: black 1px solid;*/
     margin: 1% auto;
     padding: 1% 10%;
+    border-radius: 10px;
 }
 
-label {
+form .ques-div {
+    margin-top: 5%;
+}
+
+form .ques-div label{
+    border-left: 3px solid #0d8aff;
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
+    padding-left: 15px;
+    margin-block-start: 0.83em;
+    margin-block-end: 0.83em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    margin-bottom: 3.5%;
     font-size: large;
 }
 
-.professional-div, .evaluation-curriculum-div, .evaluation-teacher-div, .evaluation-self-div {
-    margin-top: 10%;
+form .ques-div .evaluation-show{
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: #0d1112;
+    font-size: smaller;
+    color: #def3f8;
+    padding: 3px 3px;
+    border-radius: 4px;
+    text-align: center;
+    white-space: nowrap;
+    pointer-events: none;
 }
 
 /*滑轨样式*/
@@ -18,6 +42,7 @@ input[type="range"] {
     -webkit-appearance: none;
     width: 100%;
     border-radius: 0.16%;
+    caret-color: transparent;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -41,12 +66,4 @@ input[type="range"]::-webkit-slider-runnable-track {
 /*选中时样式删除*/
 input[type="range"]:focus {
     outline: none;
-}
-
-.evaluation-show{
-    position: relative;
-    width: 10%;
-    height: auto;
-    text-align: center;
-    pointer-events: none
 }

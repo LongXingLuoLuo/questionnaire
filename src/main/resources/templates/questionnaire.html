@@ -9,6 +9,10 @@
             src="../static/js/jquery_2.1.1_jquery.js"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
             src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select_1.12.4_css_bootstrap.css}"
+          href="../static/css/bootstrap-select_1.12.4_css_bootstrap.css">
+    <script th:src="@{/js/bootstrap-select_1.12.4_jquery.js}"
+            src="../static/js/bootstrap-select_1.12.4_jquery.js"></script>
     <script type="text/javascript" th:src="@{/js/questionnaire.js}" src="../static/js/questionnaire.js"></script>
     <link rel="stylesheet" th:href="@{/css/questionnaire.css}" href="../static/css/questionnaire.css">
 </head>
@@ -20,39 +24,61 @@
     <div class="form-content text-left">
         <!-- 表单 id -->
         <input type="hidden" name="questionnaire-id" value="1" th:value="${questionnaireId}">
-        <div class="professional-div form-group">
+        <!-- 专业选择-->
+        <div class="professional-div ques-div form-group">
             <label for="self-professional">
-                请输入您的专业：
+                请选择您的专业：
             </label>
-            <input type="text" name="self-professional" id="self-professional" class="input-text form-control"
-                   placeholder="请输入您的专业名称">
+            <select name="self-professional" id="self-professional" class="form-select form-control selectpicker"
+                    data-live-search="true">
+                <option value="计算机科学与技术">计算机科学与技术</option>
+                <option value="物联网工程">物联网工程</option>
+                <option value="信息安全">信息安全</option>
+                <option value="通信工程">通信工程</option>
+            </select>
+        </div>
+        <!-- 年级选择 -->
+        <div class="grade-div ques-div form-group">
+            <label for="self-grade">
+                请选择您的年级：
+            </label>
+            <select name="self-grade" id="self-grade" class="form-select form-control selectpicker"
+                    data-live-search="true">
+                <option value="本科2022">本科2022</option>
+                <option value="本科2021">本科2021</option>
+                <option value="本科2020">本科2020</option>
+                <option value="本科2019">本科2019</option>
+            </select>
         </div>
         <!-- 课程评价 -->
-        <div class="evaluation-curriculum-div form-group" th:each="curriculum : ${curriculumList}">
+        <div class="evaluation-curriculum-div ques-div form-group" th:each="curriculum : ${curriculumList}">
             <label for="curriculum-01" th:for="'curriculum-' + ${curriculum.getId()}" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name" th:text="${curriculum.getName()}">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span class="evaluation-value"></span>&nbsp;分
+                清选择您对&nbsp;<span class="evaluation-name" th:text="${curriculum.getName()}">大学物理</span>&nbsp;的课程评价为:&nbsp;&nbsp;<span
+                    class="evaluation-value"></span>&nbsp;分
             </label>
             <input type="range" min="0" max="10" step="1" name="curriculum-01" id="curriculum-01"
                    th:name="'curriculum-' + ${curriculum.getId()}" th:id="'curriculum-' + ${curriculum.getId()}"
                    value="5"/>
-            <label class="evaluation-show" th:text="${curriculum.getName()}">大学物理</label>
+            <div class="evaluation-show" th:text="${curriculum.getName()}">大学物理</div>
         </div>
         <!-- 教师评价 -->
-        <div class="evaluation-teacher-div form-group" th:each="teacher : ${teacherList}">
+        <div class="evaluation-teacher-div ques-div form-group" th:each="teacher : ${teacherList}">
             <label for="teacher-01" th:for="'teacher-' + ${teacher.getId()}" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name">张xx</span>&nbsp;的教师评价为:&nbsp;&nbsp;<span class="evaluation-value"></span>&nbsp;分
+                清选择您对&nbsp;<span class="evaluation-name" th:text="${teacher.getName()}">张xx</span>&nbsp;的教师评价为:&nbsp;&nbsp;<span
+                    class="evaluation-value"></span>&nbsp;分
             </label>
             <input type="range" min="0" max="10" step="1" name="teacher-01" id="teacher-01"
                    th:name="'teacher-' + ${teacher.getId()}" th:id="'teacher-' + ${teacher.getId()}" value="5">
-            <label class="evaluation-show" th:text="${teacher.getName()}">张xx</label>
+            <div class="evaluation-show" th:text="${teacher.getName()}">张xx</div>
         </div>
         <!-- 自我评价 -->
-        <div class="evaluation-self-div form-group">
+        <div class="evaluation-self-div ques-div form-group">
             <label for="self-evaluation" title="分数越高，代表评价越高">
-                清选择您对&nbsp;<span class="evaluation-name">自己成绩排名</span>&nbsp;的评价为:&nbsp;&nbsp;排名在前&nbsp;<span class="evaluation-value"></span>%
+                清选择您对&nbsp;<span class="evaluation-name">自己成绩排名</span>&nbsp;的评价为:&nbsp;&nbsp;排名在前&nbsp;<span
+                    class="evaluation-value"></span>%
             </label>
             <input type="range" min="5" max="100" step="5" name="self-evaluation" id="self-evaluation" value="5">
-            <label class="evaluation-show">自我评价</label>
+            <div class="evaluation-show">自我评价</div>
         </div>
     </div>
 </form>
