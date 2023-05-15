@@ -22,7 +22,7 @@ function formJson(sID) {
  */
 function divJson(sClass) {
     let jsonStr = "{";
-    $(sClass).each(function (){
+    $(sClass).each(function () {
         let oRange = $(this).find(":in-range");
         jsonStr += '"' + oRange.attr("name") + '":' + oRange.val() + ',';
     });
@@ -30,6 +30,24 @@ function divJson(sClass) {
     jsonStr += "}";
     return JSON.parse(jsonStr);
 }
+
+function rgbToHex(rgb) {
+    return "#" +
+        ("0" + rgb[0].toString(16)).slice(-2) +
+        ("0" + rgb[1].toString(16)).slice(-2) +
+        ("0" + rgb[2].toString(16)).slice(-2);
+}
+
+function peekHex(color1, color2, weight) {
+    let w1 = 1 - weight;
+    let rgb = [Math.round(color1[0] * w1 + color2[0] * weight),
+        Math.round(color1[1] * w1 + color2[1] * weight),
+        Math.round(color1[2] * w1 + color2[2] * weight),];
+    return rgbToHex(rgb);
+}
+
+const color1 = [0x67, 0xF9, 0xD4];
+const color2 = [0xFF, 0x95, 0x54];
 
 function evaluationDivInit(oDiv, min, max, step, value) {
     let oRange = $(oDiv).find(":in-range");
@@ -40,19 +58,27 @@ function evaluationDivInit(oDiv, min, max, step, value) {
     oRange.attr("step", step);
     const diameter = 25;
     oRange.on("input property-change", () => {
-        let leftOffset = oRange.position().left + diameter / 2 + oRange.width() * (oRange.val() - min) / (max - min) * (1 - diameter / oRange.width()) - oShow.width() / 2;
+        let weight = (oRange.val() - min) / (max - min);
+
+        // * 标签跟随滑块移动
+        let leftOffset = oRange.position().left + diameter / 2 + oRange.width() * weight * (1 - diameter / oRange.width()) - oShow.width() / 2;
         let topOffset = oRange.position().top - oShow.height() - 12;
         oShow.css("left", leftOffset + "px");
-        oShow.css("top", topOffset  + "px");
-        oValue.text(oRange.val());
-        oRange.css('background', 'linear-gradient(to right, white, #05FA9C ' + (oRange.val() - min) / (max - min) * 100 + '%, white 0%, white)');
+        oShow.css("top", topOffset + "px");
         oShow.show();
+
+        // * 输入结果展示
+        oValue.text(oRange.val());
+
+        // * 滑块轨道背景渐变
+        oRange.css('background', 'linear-gradient(to right, ' + rgbToHex(color1) + ',' + peekHex(color1, color2, weight) + " " + weight * 100 + '%, white 0%, white)');
     }).val(value);
     oRange.focusout(function () {
         oShow.hide();
     })
     oValue.text(oRange.val());
-    oRange.css('background', 'linear-gradient(to right, white, #05FA9C ' + (oRange.val() - min) / (max - min) * 100 + '%, white 0%, white)');
+    let weight = (oRange.val() - min) / (max - min);
+    oRange.css('background', 'linear-gradient(to right, ' + rgbToHex(color1) + ',' + peekHex(color1, color2, weight) + " " + weight * 100 + '%, white 0%, white)');
     oShow.hide();
 }
 
