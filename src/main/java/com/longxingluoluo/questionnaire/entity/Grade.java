@@ -1,9 +1,6 @@
 package com.longxingluoluo.questionnaire.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +9,7 @@ import javax.persistence.Id;
 
 /**
  * Project questionnaire
- * Created on 2023/5/13 下午 09:13
+ * Created on 2023/5/15 下午 05:18
  *
  * @author 龙星洛洛
  */
@@ -20,8 +17,8 @@ import javax.persistence.Id;
 @Setter
 @ToString
 @RequiredArgsConstructor
-@Entity(name = "curriculum")
-public class Curriculum {
+@Entity(name = "grade")
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;

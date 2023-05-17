@@ -1,9 +1,9 @@
 package com.longxingluoluo.questionnaire.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 /**
  * Project questionnaire
@@ -14,8 +14,15 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
+@RequiredArgsConstructor
+@Entity(name = "teacher")
 public class Teacher {
+    @Id
     public Long id;
     public String name;
+
+    public Teacher(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }
