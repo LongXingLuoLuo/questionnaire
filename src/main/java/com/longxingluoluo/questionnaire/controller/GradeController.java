@@ -31,7 +31,7 @@ public class GradeController {
     @ResponseBody
     public String allGrades() {
         JSONObject jsonObject = new JSONObject();
-        List<Grade> gradeList = gradeService.findAllGrades();
+        List<Grade> gradeList = gradeService.findAll();
         jsonObject.put("msg", true);
         jsonObject.put("gradeList", gradeList);
         return jsonObject.toJSONString();
@@ -47,7 +47,7 @@ public class GradeController {
     @ResponseBody
     public String getGrade(@PathVariable("id") Long id) {
         JSONObject jsonObject = new JSONObject();
-        Grade grade = gradeService.findGradeNyId(id);
+        Grade grade = gradeService.findNyId(id);
         if (grade == null) {
             jsonObject.put("msg", false);
         } else {
@@ -71,7 +71,7 @@ public class GradeController {
             jsonObject.put("msg", false);
             return jsonObject.toJSONString();
         }
-        Grade grade = gradeService.addNewGradeByName(name);
+        Grade grade = gradeService.addNewByName(name);
         if (grade == null){     // 添加失败
             jsonObject.put("msg", false);
         }else {
@@ -90,7 +90,7 @@ public class GradeController {
     @DeleteMapping(value = "/delete/{id:\\d+}")
     @ResponseBody
     public String deleteGradeB(@PathVariable("id") Long id) {
-        Grade grade = gradeService.findGradeNyId(id);
+        Grade grade = gradeService.findNyId(id);
         JSONObject jsonObject = new JSONObject();
         if (grade == null) {
             // 目标 grade 不存在

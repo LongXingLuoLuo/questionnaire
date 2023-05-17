@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Project questionnaire
- * Created on 2023/5/15 下午 10:41
  * Grade 的 service 层
  *
  * @author 龙星洛洛
@@ -25,7 +23,10 @@ public class GradeService {
      * @param name grade 名字
      * @return 添加后的grade
      */
-    public Grade addNewGradeByName(String name) {
+    public Grade addNewByName(String name) {
+        if (name == null || name.trim().equals("")) {
+            return null;
+        }
         Grade grade = new Grade();
         grade.setName(name);
         return gradeDao.save(grade);
@@ -36,7 +37,7 @@ public class GradeService {
      *
      * @return 数据库中所有的 grade
      */
-    public List<Grade> findAllGrades() {
+    public List<Grade> findAll() {
         return gradeDao.findAll();
     }
 
@@ -46,7 +47,7 @@ public class GradeService {
      * @param id 指定的id
      * @return 符合要求的 grade
      */
-    public Grade findGradeNyId(Long id) {
+    public Grade findNyId(Long id) {
         return gradeDao.findById(id);
     }
 
@@ -57,5 +58,9 @@ public class GradeService {
      */
     public void deleteById(Long id) {
         gradeDao.deleteById(id);
+    }
+
+    public boolean existsById(Grade grade) {
+        return grade!= null && gradeDao.existsById(grade.id);
     }
 }

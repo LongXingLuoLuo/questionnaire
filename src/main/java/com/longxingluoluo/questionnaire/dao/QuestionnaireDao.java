@@ -19,4 +19,5 @@ public interface QuestionnaireDao extends Repository<Questionnaire, Long> {
 
     void deleteById(Long id);
 
+    boolean existsById(Long id);
 }

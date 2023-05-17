@@ -18,4 +18,11 @@ public interface CurriculumDao extends Repository<Curriculum, Long> {
     Curriculum save(Curriculum curriculum);
 
     void deleteById(Long id);
+
+    /**
+     * 查询指定 id 的 课程 是否存在
+     * @param id 指定 id
+     * @return 该课程是否存在
+     */
+    boolean existsById(Long id);
 }

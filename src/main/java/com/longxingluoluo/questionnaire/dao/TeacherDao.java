@@ -18,4 +18,6 @@ public interface TeacherDao extends Repository<Teacher, Long> {
     Teacher save(Teacher teacher);
 
     void deleteById(Long id);
+
+    boolean existsById(Long id);
 }

@@ -12,7 +12,12 @@ import java.util.List;
  */
 public interface ProfessionalDao extends Repository<Professional, Long> {
     Professional findById(Long id);
+
     List<Professional> findAll();
+
     void deleteById(Long id);
+
     Professional save(Professional professional);
+
+    boolean existsById(Long id);
 }

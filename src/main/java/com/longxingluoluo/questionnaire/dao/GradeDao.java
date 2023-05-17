@@ -36,4 +36,6 @@ public interface GradeDao extends Repository<Grade, Long> {
      * @param id 指定id
      */
     void deleteById(Long id);
+
+    boolean existsById(Long id);
 }
