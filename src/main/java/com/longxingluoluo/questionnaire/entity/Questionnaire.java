@@ -2,9 +2,7 @@ package com.longxingluoluo.questionnaire.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 /**
@@ -20,14 +18,15 @@ import java.util.List;
 @Entity(name = "questionnaire")
 public class Questionnaire {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String name;
-    @OneToMany
+    @ManyToMany
     public List<Grade> gradeList;
-    @OneToMany
+    @ManyToMany
     public List<Professional> professionalList;
-    @OneToMany
+    @ManyToMany
     public List<Curriculum> curriculumList;
-    @OneToMany
+    @ManyToMany
     public List<Teacher> teacherList;
 }

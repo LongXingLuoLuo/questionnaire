@@ -22,7 +22,7 @@ public class CurriculumEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    @OneToOne
+    @ManyToOne
     public Curriculum curriculum;
     public int evaluation;
 }

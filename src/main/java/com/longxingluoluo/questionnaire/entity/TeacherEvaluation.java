@@ -5,9 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 /**
  * Project questionnaire
@@ -22,8 +20,9 @@ import javax.persistence.OneToOne;
 @Entity(name = "teacher_evaluation")
 public class TeacherEvaluation {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
-    @OneToOne
+    @ManyToOne
     public Teacher teacher;
     public int evaluation;
 }
