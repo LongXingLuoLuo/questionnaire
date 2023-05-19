@@ -3,6 +3,8 @@ package com.longxingluoluo.questionnaire.entity;
 import lombok.*;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
@@ -18,11 +20,7 @@ import javax.persistence.Id;
 @Entity(name = "teacher")
 public class Teacher {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
     public String name;
-
-    public Teacher(Long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
 }
