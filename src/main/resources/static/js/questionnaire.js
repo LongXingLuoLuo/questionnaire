@@ -24,7 +24,7 @@ function divJson(sClass) {
     let jsonStr = "{";
     $(sClass).each(function () {
         let oRange = $(this).find(":in-range");
-        jsonStr += '"' + oRange.attr("name") + '":' + oRange.val() + ',';
+        jsonStr += '' + oRange.attr("name") + ':' + oRange.val() + ',';
     });
     jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
     jsonStr += "}";
