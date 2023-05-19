@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>问卷填写结果展示</title>
+</head>
+<body>
+<table id="data-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
+       data-search-align="left"
+       data-show-refresh="true" th:data-url="/questionnaire_answer/" data-method="get">
+    <thead>
+    <tr>
+        <th th:data-field="professional" data-sortable="true">专业</th>
+        <th data-field="teacher_evaluation" data-sortable="true">对 张 xx 的评价</th>
+        <th data-field="self_evaluation" data-sortable="true">对自己的评价</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+</html>
