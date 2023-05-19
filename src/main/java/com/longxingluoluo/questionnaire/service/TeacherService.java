@@ -8,8 +8,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Project questionnaire
- * Created on 2023/5/17 下午 11:53
+ * Teacher 的 service 层
  *
  * @author 龙星洛洛
  */
@@ -26,11 +25,12 @@ public class TeacherService {
         return teacherDao.findAll();
     }
 
-    public Teacher addNewByName(Teacher teacher) {
-        teacher.setId(null);
-        if (teacher.name == null || teacher.name.trim().equals("")) {
+    public Teacher addNewByName(String name) {
+        if (name == null || name.trim().equals("")) {
             return null;
         }
+        Teacher teacher = new Teacher();
+        teacher.setName(name);
         return teacherDao.save(teacher);
     }
 

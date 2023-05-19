@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Project questionnaire
- * Created on 2023/5/17 下午 09:01
  * QuestionnaireAnswer 的 service 层
  *
  * @author 龙星洛洛

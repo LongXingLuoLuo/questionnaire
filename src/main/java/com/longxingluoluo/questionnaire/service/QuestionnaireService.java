@@ -8,8 +8,7 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * Project questionnaire
- * Created on 2023/5/17 下午 11:24
+ * Questionnaire 的 service 层
  *
  * @author 龙星洛洛
  */
@@ -60,11 +59,20 @@ public class QuestionnaireService {
             }
         }
         Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setId(null);
         questionnaire.setName(name);
         questionnaire.setGradeList(gradeList);
         questionnaire.setProfessionalList(professionalList);
         questionnaire.setCurriculumList(curriculumList);
         questionnaire.setTeacherList(teacherList);
         return questionnaireDao.save(questionnaire);
+    }
+
+    public void deleteById(Long id){
+        questionnaireDao.deleteById(id);
+    }
+
+    public boolean existsById(Long id){
+        return questionnaireDao.existsById(id);
     }
 }
