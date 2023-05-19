@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>增加新的问卷</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap_3.3.7_css_bootstrap.css}"
+          href="../static/css/bootstrap_3.3.7_css_bootstrap.css">
+    <script type="text/javascript" th:src="@{/js/jquery_2.1.1_jquery.js}"
+            src="../static/js/jquery_2.1.1_jquery.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
+            src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select_1.12.4_css_bootstrap.css}"
+          href="../static/css/bootstrap-select_1.12.4_css_bootstrap.css">
+    <script th:src="@{/js/bootstrap-select_1.12.4_jquery.js}"
+            src="../static/js/bootstrap-select_1.12.4_jquery.js"></script>
+    <script th:src="@{/js/bootstrap-select_1.12.4_jquery_zh-CN.js}"
+            src="../static/js/bootstrap-select_1.12.4_jquery_zh-CN.js"></script>
+    <link rel="stylesheet" th:href="@{/css/questionnaire_add.css}"
+          href="../static/css/questionnaire_add.css">
+    <script th:src="@{/js/questionnaire_add.js}"
+            src="../static/js/questionnaire_add.js"></script>
+</head>
+<body class="text-center">
+<div class="content text-left">
+    <form class="form-horizontal" id="form">
+        <div class="form-group ques-div">
+            <label for="name-input">
+                请输入问卷名字：
+            </label>
+            <input type="text" id="name-input" name="name" class="form-control">
+        </div>
+        <div class="form-group ques-div">
+            <label for="gradeList-select">
+                请选择年级：
+            </label>
+            <select id="gradeList-select" name="gradeList" class="form-select form-control selectpicker" multiple
+                    data-live-search="true">
+                <option th:each="grade : ${gradeList}" th:value="${grade.getId()}" th:text="${grade.getName()}">本科
+                    2022
+                </option>
+            </select>
+        </div>
+        <div class="form-group ques-div">
+            <label for="professionalList-select">
+                请选择专业：
+            </label>
+            <select id="professionalList-select" name="professionalList" class="form-select form-control selectpicker" multiple
+                    data-live-search="true">
+                <option th:each="professional : ${professionalList}" th:value="${professional.getId()}"
+                        th:text="${professional.getName()}" value="123"> 计算机科学技术
+                </option>
+            </select>
+        </div>
+        <div class="form-group ques-div">
+            <label for="curriculumList-select">
+                请选择需要被评价的课程：
+            </label>
+            <select id="curriculumList-select" name="curriculumList" class="form-select form-control selectpicker" multiple
+                    data-live-search="true">
+                <option th:each="curriculum : ${curriculumList}" th:value="${curriculum.getId()}"
+                        th:text="${curriculum.getName()}"> 大学物理
+                </option>
+            </select>
+        </div>
+        <div class="form-group ques-div">
+            <label for="teacherList-select">
+                请选择需要被评价的老师：
+            </label>
+            <select id="teacherList-select" name="teacherList" class="form-select form-control selectpicker" multiple
+                    data-live-search="true">
+                <option th:each="teacher : ${teacherList}" th:value="${teacher.getId()}"
+                        th:text="${teacher.getName()}"> 张 xx
+                </option>
+            </select>
+        </div>
+    </form>
+</div>
+<div class="submit-div">
+    <button class="submit-btn btn-success" id="submit-btn">确认提交</button>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+form{
+    width: 80%;
+    margin: 5% 10%;
+}
+form .ques-div{
+    margin-bottom: 5%;
+}
+form .submit-btn{
+    font-size: larger;
+}
