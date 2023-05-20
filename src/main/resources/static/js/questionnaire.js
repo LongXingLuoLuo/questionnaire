@@ -21,14 +21,15 @@ function formJson(sID) {
  * @returns {json} json类型的表单数据
  */
 function divJson(sClass) {
-    let jsonStr = "{";
+    let arr = [];
     $(sClass).each(function () {
         let oRange = $(this).find(":in-range");
-        jsonStr += '' + oRange.attr("name") + ':' + oRange.val() + ',';
+        arr.push({
+            "id" : oRange.attr("name"),
+            "evaluation": oRange.val()
+        });
     });
-    jsonStr = jsonStr.substring(0, (jsonStr.length - 1));
-    jsonStr += "}";
-    return JSON.parse(jsonStr);
+    return JSON.parse(JSON.stringify(arr));
 }
 
 function rgbToHex(rgb) {
@@ -94,13 +95,31 @@ $(function () {
     })
 
     $("#submit").click(function () {
-        let oProfessionalInput = $("#questionnaire-form").find("#self-professional");
-        if (oProfessionalInput.val().trim().length === 0) {
-            oProfessionalInput.val("");
-            alert("请输入自己的专业");
-            window.location.href = "#self-professional";
-            return;
-        }
-        console.log(formJson("questionnaire-form"));
+        let data = {
+            "questionnaireId": $("#questionnaire-id-input").val(),
+            "gradeId": $("#grade-select").val(),
+            "professionalId": $("#professional-select").val(),
+            "curriculumEvaluationList": divJson(".evaluation-curriculum-div"),
+            "teacherEvaluationList": divJson(".evaluation-teacher-div"),
+            "selfEvaluation": $("#self-evaluation").val(),
+        };
+        console.log(JSON.parse(JSON.stringify(data)));
+        $.ajax({
+            url: "/questionnaire_answer/add",
+            type: "post",
+            contentType: "application/json;charset=utf-8",
+            data: JSON.stringify(data),
+            success: function (message) {
+                message = JSON.parse(message);
+                if (message["msg"] === true){
+                    alert("问卷填写提交成功");
+                } else {
+                    alert("问卷填写提交失败");
+                }
+            },
+            error: function (message) {
+                alert("问卷填写提交请求失败");
+            }
+        })
     })
 })

@@ -20,14 +20,15 @@ $(function () {
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(temp),
             success: function (message) {
+                message = JSON.parse(message);
                 if (message["msg"] === true){
-                    alert("添加成功");
+                    alert("问卷添加成功");
                 } else {
-                    alert("添加失败");
+                    alert("问卷添加失败");
                 }
             },
             error: function (message) {
-                alert("访问失败");
+                alert("问卷添加请求失败");
             }
         })
     })
