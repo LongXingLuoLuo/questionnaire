@@ -3,6 +3,7 @@ package com.longxingluoluo.questionnaire.service;
 import com.longxingluoluo.questionnaire.dao.*;
 import com.longxingluoluo.questionnaire.entity.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,10 +26,12 @@ public class QuestionnaireService {
     @Resource
     TeacherDao teacherDao;
 
+    @Transactional(readOnly = true)
     public Questionnaire findById(Long id) {
         return questionnaireDao.findById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<Questionnaire> findAll() {
         return questionnaireDao.findAll();
     }
@@ -72,6 +75,7 @@ public class QuestionnaireService {
         questionnaireDao.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsById(Long id){
         return questionnaireDao.existsById(id);
     }

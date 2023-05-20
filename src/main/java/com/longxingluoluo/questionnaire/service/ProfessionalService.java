@@ -3,6 +3,7 @@ package com.longxingluoluo.questionnaire.service;
 import com.longxingluoluo.questionnaire.dao.ProfessionalDao;
 import com.longxingluoluo.questionnaire.entity.Professional;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,10 +24,12 @@ public class ProfessionalService {
         return professionalDao.save(professional);
     }
 
+    @Transactional(readOnly = true)
     public List<Professional> findAll() {
         return professionalDao.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Professional findById(Long id) {
         return professionalDao.findById(id);
     }
@@ -35,6 +38,7 @@ public class ProfessionalService {
         professionalDao.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsById(Professional professional) {
         return professional != null && professionalDao.existsById(professional.id);
     }

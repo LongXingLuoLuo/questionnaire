@@ -3,6 +3,7 @@ package com.longxingluoluo.questionnaire.service;
 import com.longxingluoluo.questionnaire.dao.CurriculumDao;
 import com.longxingluoluo.questionnaire.entity.Curriculum;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,10 +24,12 @@ public class CurriculumService {
         return  curriculumDao.save(curriculum);
     }
 
+    @Transactional(readOnly = true)
     public List<Curriculum> findAll(){
         return curriculumDao.findAll();
     }
 
+    @Transactional(readOnly = true)
     public Curriculum findById(Long id){
         return curriculumDao.findById(id);
     }
@@ -35,6 +38,7 @@ public class CurriculumService {
         curriculumDao.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsById(Curriculum curriculum){
         return curriculum!=null && curriculumDao.existsById(curriculum.id);
     }

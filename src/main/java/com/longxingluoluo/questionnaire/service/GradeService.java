@@ -3,6 +3,7 @@ package com.longxingluoluo.questionnaire.service;
 import com.longxingluoluo.questionnaire.dao.GradeDao;
 import com.longxingluoluo.questionnaire.entity.Grade;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -37,6 +38,7 @@ public class GradeService {
      *
      * @return 数据库中所有的 grade
      */
+    @Transactional(readOnly = true)
     public List<Grade> findAll() {
         return gradeDao.findAll();
     }
@@ -47,7 +49,8 @@ public class GradeService {
      * @param id 指定的id
      * @return 符合要求的 grade
      */
-    public Grade findNyId(Long id) {
+    @Transactional(readOnly = true)
+    public Grade findById(Long id) {
         return gradeDao.findById(id);
     }
 
@@ -60,6 +63,7 @@ public class GradeService {
         gradeDao.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
     public boolean existsById(Grade grade) {
         return grade!= null && gradeDao.existsById(grade.id);
     }

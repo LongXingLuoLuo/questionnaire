@@ -3,6 +3,7 @@ package com.longxingluoluo.questionnaire.service;
 import com.longxingluoluo.questionnaire.dao.*;
 import com.longxingluoluo.questionnaire.entity.*;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -27,55 +28,87 @@ public class QuestionnaireAnswerService {
     @Resource
     TeacherDao teacherDao;
 
+
+    @Transactional(readOnly = true)
     public QuestionnaireAnswer findById(Long id) {
         return questionnaireAnswerDao.findById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<QuestionnaireAnswer> findAll() {
         return questionnaireAnswerDao.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<QuestionnaireAnswer> findAllByQuestionnaire(Questionnaire questionnaire) {
         return questionnaireAnswerDao.findAllByQuestionnaire(questionnaire);
     }
 
+    @Transactional(readOnly = true)
     public List<QuestionnaireAnswer> findAllByProfessional(Professional professional) {
         return questionnaireAnswerDao.findAllByProfessional(professional);
     }
 
+    @Transactional(readOnly = true)
     public List<QuestionnaireAnswer> findAllByGrade(Grade grade) {
         return questionnaireAnswerDao.findAllByGrade(grade);
     }
 
     public QuestionnaireAnswer addNewByAll(Questionnaire questionnaire, Grade grade, Professional professional, List<CurriculumEvaluation> curriculumEvaluationList,
                                            List<TeacherEvaluation> teacherEvaluationList, int selfEvaluation) {
-        if (questionnaire != null && !questionnaireDao.existsById(questionnaire.id)) {
+        QuestionnaireAnswer questionnaireAnswer = new QuestionnaireAnswer();
+
+        if (questionnaire == null || !questionnaireDao.existsById(questionnaire.id)) {
             return null;
         }
-        if (grade != null && !gradeDao.existsById(grade.id)) {
-            return null;
+        questionnaireAnswer.setQuestionnaire(questionnaire);
+
+        if (grade != null && grade.id != null) {
+            if (gradeDao.existsById(grade.id)) {
+                questionnaireAnswer.setGrade(grade);
+            } else {
+                return null;
+            }
+        } else {
+            questionnaireAnswer.setGrade(null);
         }
-        if (professional != null && !professionalDao.existsById(professional.id)) {
-            return null;
+
+        if (professional != null && professional.id != null) {
+            if (professionalDao.existsById(professional.id)) {
+                questionnaireAnswer.setProfessional(professional);
+            } else {
+                return null;
+            }
+        } else {
+            questionnaireAnswer.setProfessional(null);
         }
+
         for (CurriculumEvaluation curriculumEvaluation : curriculumEvaluationList) {
             if (curriculumEvaluation == null || curriculumEvaluation.curriculum == null || !curriculumDao.existsById(curriculumEvaluation.curriculum.id)) {
                 return null;
             }
             curriculumEvaluation.setId(null);
         }
+        questionnaireAnswer.setCurriculumEvaluationList(curriculumEvaluationList);
+
         for (TeacherEvaluation teacherEvaluation : teacherEvaluationList) {
             if (teacherEvaluation == null || teacherEvaluation.teacher == null || !teacherDao.existsById(teacherEvaluation.teacher.id)) {
                 return null;
             }
             teacherEvaluation.setId(null);
         }
-        QuestionnaireAnswer questionnaireAnswer = new QuestionnaireAnswer();
-        questionnaireAnswer.setQuestionnaire(questionnaire);
-        questionnaireAnswer.setGrade(grade);
-        questionnaireAnswer.setProfessional(professional);
-        questionnaireAnswer.setCurriculumEvaluationList(curriculumEvaluationList);
         questionnaireAnswer.setTeacherEvaluationList(teacherEvaluationList);
+        questionnaireAnswer.setSelfEvaluation(selfEvaluation);
+        questionnaireAnswer = questionnaireAnswerDao.save(questionnaireAnswer);
+        for (CurriculumEvaluation curriculumEvaluation :
+                questionnaireAnswer.getCurriculumEvaluationList()
+        ) {
+            curriculumEvaluation.setQuestionnaireAnswer(questionnaireAnswer);
+        }
+        for (TeacherEvaluation teacherEvaluation :
+                questionnaireAnswer.getTeacherEvaluationList()) {
+            teacherEvaluation.setQuestionnaireAnswer(questionnaireAnswer);
+        }
         return questionnaireAnswerDao.save(questionnaireAnswer);
     }
 

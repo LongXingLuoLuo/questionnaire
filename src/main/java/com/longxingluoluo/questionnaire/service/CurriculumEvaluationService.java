@@ -5,6 +5,7 @@ import com.longxingluoluo.questionnaire.dao.CurriculumEvaluationDao;
 import com.longxingluoluo.questionnaire.entity.Curriculum;
 import com.longxingluoluo.questionnaire.entity.CurriculumEvaluation;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -31,14 +32,17 @@ public class CurriculumEvaluationService {
         return curriculumEvaluationDao.save(curriculumEvaluation);
     }
 
+    @Transactional(readOnly = true)
     public CurriculumEvaluation findById(Long id){
         return curriculumEvaluationDao.findById(id);
     }
 
+    @Transactional(readOnly = true)
     public List<CurriculumEvaluation> findAll(){
         return curriculumEvaluationDao.findAll();
     }
 
+    @Transactional(readOnly = true)
     public List<CurriculumEvaluation> findAllByCurriculum(Curriculum curriculum){
         return curriculumEvaluationDao.findByCurriculum(curriculum);
     }
