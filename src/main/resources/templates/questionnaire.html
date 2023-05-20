@@ -20,28 +20,28 @@
 </head>
 <body class="text-center">
 <div class="title">
-    <h1>北科大教学评价问卷</h1>
+    <h1 th:text="${questionnaire.getName()}">北科大教学评价问卷</h1>
 </div>
 <form class="form-horizontal" id="questionnaire-form">
     <div class="form-content text-left">
         <!-- 表单 id -->
-        <input type="hidden" name="questionnaire-id" value="1" th:value="${questionnaire.id}">
+        <input type="hidden" id="questionnaire-id-input" name="questionnaire-id" value="1" th:value="${questionnaire.id}">
         <!-- 专业选择-->
-        <div class="professional-div ques-div form-group">
-            <label for="self-professional">
+        <div class="select-professional-div ques-div form-group">
+            <label for="professional-select">
                 请选择您的专业：
             </label>
-            <select name="self-professional" id="self-professional" class="form-select form-control selectpicker"
+            <select name="self-professional" id="professional-select" class="form-select form-control selectpicker"
                     data-live-search="true">
                 <option th:each="professional : ${questionnaire.professionalList}" th:text="${professional.getName()}" th:value="${professional.getId()}">计算机科学与技术</option>
             </select>
         </div>
         <!-- 年级选择 -->
-        <div class="grade-div ques-div form-group">
-            <label for="self-grade">
+        <div class="select-grade-div ques-div form-group">
+            <label for="grade-select">
                 请选择您的年级：
             </label>
-            <select name="self-grade" id="self-grade" class="form-select form-control selectpicker"
+            <select name="self-grade" id="grade-select" class="form-select form-control selectpicker"
                     data-live-search="true">
                 <option th:each="grade : ${questionnaire.gradeList}" th:text="${grade.getName()}" th:value="${grade.getId()}">本科2022</option>
             </select>
