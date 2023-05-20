@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Project questionnaire
@@ -45,7 +44,7 @@ public class GradeController {
     @ResponseBody
     public String getGrade(@PathVariable("id") Long id) {
         JSONObject jsonObject = new JSONObject();
-        Grade grade = gradeService.findNyId(id);
+        Grade grade = gradeService.findById(id);
         jsonObject.put("grade", grade);
         return jsonObject.toJSONString();
     }

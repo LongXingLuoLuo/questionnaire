@@ -1,6 +1,5 @@
 package com.longxingluoluo.questionnaire.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.longxingluoluo.questionnaire.entity.*;
@@ -64,16 +63,6 @@ public class QuestionnaireController {
     }
 
     /**
-     * @param questionnaireId 填写的调查问卷的id
-     * @return 填写结果
-     */
-    @RequestMapping(value = "/answer/{questionnaireId}", method = RequestMethod.POST)
-    @ResponseBody
-    public String answerQuestionnaire(@PathVariable("questionnaireId")Long questionnaireId){
-        return "感谢填写问卷 questionnaireId";
-    }
-
-    /**
      * 进入添加新的问卷界面
      * @param model 包含所有年级，专业，老师，课程
      * @return 添加新的问卷界面
@@ -92,47 +81,45 @@ public class QuestionnaireController {
     public String doAddQuestionnaire(@RequestBody JSONObject jsonParam){
         System.out.println(jsonParam.toJSONString());
         String name = (String) jsonParam.get("name");
-        JSONArray gradeListJSON = jsonParam.getJSONArray("gradeList");
-        JSONArray professionalListJSON = jsonParam.getJSONArray("professionalList");
-        JSONArray curriculumListJSON = jsonParam.getJSONArray("curriculumList");
-        JSONArray teacherListJSON = jsonParam.getJSONArray("teacherList");
+        JSONArray gradeJSONArray = jsonParam.getJSONArray("gradeList");
+        JSONArray professionalJSONArray = jsonParam.getJSONArray("professionalList");
+        JSONArray curriculumJSONArray = jsonParam.getJSONArray("curriculumList");
+        JSONArray teacherJSONArray = jsonParam.getJSONArray("teacherList");
         List<Grade> gradeList = new ArrayList<>();
         List<Professional> professionalList = new ArrayList<>();
         List<Curriculum> curriculumList = new ArrayList<>();
         List<Teacher> teacherList = new ArrayList<>();
-        if (gradeListJSON != null){
-            for (Object o : gradeListJSON) {
+        if (gradeJSONArray != null){
+            for (Object o : gradeJSONArray) {
                 Grade grade = new Grade();
                 grade.setId(Long.valueOf(o.toString()));
                 gradeList.add(grade);
             }
         }
-        if (professionalListJSON != null){
-            for (Object o : professionalListJSON) {
+        if (professionalJSONArray != null){
+            for (Object o : professionalJSONArray) {
                 Professional professional = new Professional();
                 professional.setId(Long.valueOf(o.toString()));
                 professionalList.add(professional);
             }
         }
-        if (curriculumListJSON != null){
-            for (Object o : curriculumListJSON) {
+        if (curriculumJSONArray != null){
+            for (Object o : curriculumJSONArray) {
                 Curriculum curriculum = new Curriculum();
                 curriculum.setId(Long.valueOf(o.toString()));
                 curriculumList.add(curriculum);
             }
         }
-        if (teacherListJSON != null){
-            for (Object o : teacherListJSON) {
+        if (teacherJSONArray != null){
+            for (Object o : teacherJSONArray) {
                 Teacher teacher = new Teacher();
                 teacher.setId(Long.valueOf(o.toString()));
                 teacherList.add(teacher);
             }
         }
         Questionnaire questionnaire = questionnaireService.addNewByAll(name, gradeList,professionalList, curriculumList, teacherList);
-        System.out.println(questionnaire);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("msg", questionnaire != null);
-        jsonObject.put("questionnaire", questionnaire);
         return jsonObject.toJSONString();
     }
 }
