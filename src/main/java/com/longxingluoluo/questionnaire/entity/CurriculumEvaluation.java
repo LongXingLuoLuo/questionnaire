@@ -1,5 +1,7 @@
 package com.longxingluoluo.questionnaire.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -22,7 +24,15 @@ public class CurriculumEvaluation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     @ManyToOne
     public Curriculum curriculum;
+
     public int evaluation;
+
+    @ManyToOne
+    @ToString.Exclude
+    @JsonIgnoreProperties
+    @JSONField(serialize = false)
+    public QuestionnaireAnswer questionnaireAnswer;
 }

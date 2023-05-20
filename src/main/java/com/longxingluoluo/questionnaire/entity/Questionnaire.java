@@ -1,6 +1,13 @@
 package com.longxingluoluo.questionnaire.entity;
 
-import lombok.*;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,13 +27,28 @@ public class Questionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String name;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<Grade> gradeList;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<Professional> professionalList;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<Curriculum> curriculumList;
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<Teacher> teacherList;
+
+    @OneToMany(mappedBy = "questionnaire", cascade = CascadeType.ALL)
+    @ToString.Exclude
+    @JsonIgnoreProperties
+    @JSONField(serialize = false)
+    public List<QuestionnaireAnswer> questionnaireAnswerList;
 }

@@ -1,11 +1,14 @@
 package com.longxingluoluo.questionnaire.entity;
 
-import lombok.*;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * Project questionnaire
@@ -22,5 +25,18 @@ public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     public String name;
+
+    @ManyToMany(mappedBy = "gradeList", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @JsonIgnoreProperties
+    @JSONField(serialize = false)
+    public List<Questionnaire> questionnaireList;
+
+    @OneToMany(mappedBy = "grade", cascade = CascadeType.REMOVE)
+    @ToString.Exclude
+    @JsonIgnoreProperties
+    @JSONField(serialize = false)
+    public List<QuestionnaireAnswer> questionnaireAnswerList;
 }

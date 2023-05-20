@@ -1,6 +1,11 @@
 package com.longxingluoluo.questionnaire.entity;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.util.List;
@@ -20,15 +25,23 @@ public class QuestionnaireAnswer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long id;
+
     @ManyToOne
     public Questionnaire questionnaire;
+
     @ManyToOne
     public Professional professional;
+
     @ManyToOne
     public Grade grade;
-    @ManyToMany
+
+    @OneToMany(mappedBy = "questionnaireAnswer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<CurriculumEvaluation> curriculumEvaluationList;
-    @ManyToMany
+
+    @OneToMany(mappedBy = "questionnaireAnswer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @Fetch(FetchMode.SUBSELECT)
     public List<TeacherEvaluation> teacherEvaluationList;
+
     public int selfEvaluation;
 }
