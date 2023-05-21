@@ -75,7 +75,7 @@ public class QuestionnaireAnswerController {
      * @param id 问卷 id
      * @return 问卷的所有填写结果的 json 格式
      */
-    @RequestMapping("/table/json/{id:\\d+}")
+    @GetMapping("/table/json/{id:\\d+}")
     @ResponseBody
     public String getAllQuestionnaireAnswerByQuestionnaire(@PathVariable("id") Long id) {
         if (!questionnaireService.existsById(id)) {
@@ -108,13 +108,14 @@ public class QuestionnaireAnswerController {
                 jsonObject.put("teacher-evaluation-" + teacherEvaluation.teacher.getId(), teacherEvaluation.getEvaluation());
             }
             jsonObject.put("self-evaluation", questionnaireAnswer.getSelfEvaluation());
+            jsonObject.put("id", questionnaireAnswer.getId());
             jsonObject.put("questionnaire-id", questionnaire.getId());
             jsonArray.add(jsonObject);
         }
         return jsonArray.toJSONString();
     }
 
-    @RequestMapping("/table/{id:\\d+}")
+    @GetMapping("/table/{id:\\d+}")
     public String showQuestionnaireAnswerTable(@PathVariable("id") Long id, Model model) {
         Questionnaire questionnaire = questionnaireService.findById(id);
         if (questionnaire == null){
@@ -125,22 +126,32 @@ public class QuestionnaireAnswerController {
         return "questionnaire_answer_table";
     }
 
-    @RequestMapping("/export/{id:\\d+}")
+    @GetMapping("/export/{id:\\d+}")
+    @ResponseBody
     public void exportByQuestionnaire(@PathVariable("id") Long id, HttpServletResponse response){
-        JSONObject jsonObject = new JSONObject();
         if (!questionnaireService.existsById(id)){
-            jsonObject.put("msg", false);
             return;
         }
         Questionnaire questionnaire = new Questionnaire();
         questionnaire.setId(id);
         try{
             questionnaireAnswerService.exportExcel(questionnaire, response);
-            jsonObject.put("msg", true);
         } catch (Exception e){
             e.printStackTrace();
-            jsonObject.put("msg", false);
         }
-//        return jsonObject.toJSONString();
     }
+
+    @DeleteMapping("/delete/{id:\\d+}")
+    @ResponseBody
+    public String deleteQuestionnaireAnswerById(@PathVariable("id") Long id){
+        JSONObject jsonObject = new JSONObject();
+        if (!questionnaireAnswerService.existsById(id)){
+            jsonObject.put("msg", false);
+        } else {
+            questionnaireAnswerService.deleteById(id);
+            jsonObject.put("msg", true);
+        }
+        return jsonObject.toJSONString();
+    }
+
 }

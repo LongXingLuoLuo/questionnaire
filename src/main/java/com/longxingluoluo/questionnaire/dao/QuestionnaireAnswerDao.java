@@ -64,4 +64,11 @@ public interface QuestionnaireAnswerDao extends Repository<QuestionnaireAnswer, 
      * @param id 指定的 id
      */
     void deleteById(Long id);
+
+    /**
+     * 判断指定 id 的问卷填写结果是否存在
+     * @param id 指定 id
+     * @return 该问卷填写结果是否存在
+     */
+    boolean existsById(Long id);
 }

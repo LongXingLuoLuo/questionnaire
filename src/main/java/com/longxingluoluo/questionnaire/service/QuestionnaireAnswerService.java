@@ -134,4 +134,11 @@ public class QuestionnaireAnswerService {
         questionnaire = questionnaireDao.findById(questionnaire.id);
         ExcelExport.exportExcel(questionnaireAnswerDao.findAllByQuestionnaire(questionnaire), questionnaire, response);
     }
+
+    public boolean existsById(Long id){
+        if (id == null){
+            return false;
+        }
+        return questionnaireAnswerDao.existsById(id);
+    }
 }

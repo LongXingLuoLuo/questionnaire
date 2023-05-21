@@ -9,12 +9,6 @@
             src="../static/js/jquery_2.1.1_jquery.js"></script>
     <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
             src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
-    <link rel="stylesheet" th:href="@{/css/bootstrap-select_1.12.4_css_bootstrap.css}"
-          href="../static/css/bootstrap-select_1.12.4_css_bootstrap.css">
-    <script th:src="@{/js/bootstrap-select_1.12.4_jquery.js}"
-            src="../static/js/bootstrap-select_1.12.4_jquery.js"></script>
-    <script th:src="@{/js/bootstrap-select_1.12.4_jquery_zh-CN.js}"
-            src="../static/js/bootstrap-select_1.12.4_jquery_zh-CN.js"></script>
     <link rel="stylesheet" th:href="@{/css/bootstrap-table_1.13.1_css_bootstrap.css}"
           href="../static/css/bootstrap-table_1.13.1_css_bootstrap.css">
     <script th:src="@{/js/bootstrap-table_1.13.1_jquery.js}"
@@ -26,7 +20,7 @@
 </head>
 <body>
 <div class="table-div">
-    <table id="data-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
+    <table id="questionnaire-answer-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
            data-search-align="left" data-show-refresh="true" data-url="../examples.json" data-method="get"
            th:data-url="|/questionnaire_answer/table/json/${questionnaire.getId()}|">
         <thead>
@@ -42,7 +36,8 @@
                 th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
             </th>
             <th data-field="self-evaluation" data-sortable="true">学生自己成绩范围估计</th>
-            <th data-field="questionnaire-id" data-formatter="exportActionFormatter">导出全部问卷填写结果</th>
+            <th data-field="questionnaire-id" data-formatter="exportActionFormatter">导出全部</th>
+            <th data-field="id" data-formatter="deleteActionFormatter">删除</th>
         </tr>
         </thead>
         <tbody>
