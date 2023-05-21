@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,7 +70,12 @@ public class QuestionnaireAnswerController {
         return jsonObject.toJSONString();
     }
 
-    @RequestMapping("/table/questionnaire/{id:\\d+}")
+    /**
+     * 为 bootstrap-table 提供的数据接口
+     * @param id 问卷 id
+     * @return 问卷的所有填写结果的 json 格式
+     */
+    @RequestMapping("/table/json/{id:\\d+}")
     @ResponseBody
     public String getAllQuestionnaireAnswerByQuestionnaire(@PathVariable("id") Long id) {
         if (!questionnaireService.existsById(id)) {
@@ -102,6 +108,7 @@ public class QuestionnaireAnswerController {
                 jsonObject.put("teacher-evaluation-" + teacherEvaluation.teacher.getId(), teacherEvaluation.getEvaluation());
             }
             jsonObject.put("self-evaluation", questionnaireAnswer.getSelfEvaluation());
+            jsonObject.put("questionnaire-id", questionnaire.getId());
             jsonArray.add(jsonObject);
         }
         return jsonArray.toJSONString();
@@ -116,5 +123,24 @@ public class QuestionnaireAnswerController {
         List<QuestionnaireAnswer> questionnaireAnswerList = new ArrayList<>();
         model.addAttribute("questionnaire", questionnaire);
         return "questionnaire_answer_table";
+    }
+
+    @RequestMapping("/export/{id:\\d+}")
+    public void exportByQuestionnaire(@PathVariable("id") Long id, HttpServletResponse response){
+        JSONObject jsonObject = new JSONObject();
+        if (!questionnaireService.existsById(id)){
+            jsonObject.put("msg", false);
+            return;
+        }
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setId(id);
+        try{
+            questionnaireAnswerService.exportExcel(questionnaire, response);
+            jsonObject.put("msg", true);
+        } catch (Exception e){
+            e.printStackTrace();
+            jsonObject.put("msg", false);
+        }
+//        return jsonObject.toJSONString();
     }
 }

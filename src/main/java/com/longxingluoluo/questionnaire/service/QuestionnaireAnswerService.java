@@ -2,10 +2,16 @@ package com.longxingluoluo.questionnaire.service;
 
 import com.longxingluoluo.questionnaire.dao.*;
 import com.longxingluoluo.questionnaire.entity.*;
+import com.longxingluoluo.questionnaire.util.ExcelExport;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.List;
 
 /**
@@ -114,5 +120,18 @@ public class QuestionnaireAnswerService {
 
     public void deleteById(Long id) {
         questionnaireAnswerDao.deleteById(id);
+    }
+
+    /**
+     * 把某个问卷的所有提交导出为 excel
+     * @param questionnaire 问卷
+     * @param response http response
+     */
+    public void exportExcel(Questionnaire questionnaire, HttpServletResponse response) throws IOException {
+        if (questionnaire == null || !questionnaireDao.existsById(questionnaire.id)){
+            return;
+        }
+        questionnaire = questionnaireDao.findById(questionnaire.id);
+        ExcelExport.exportExcel(questionnaireAnswerDao.findAllByQuestionnaire(questionnaire), questionnaire, response);
     }
 }

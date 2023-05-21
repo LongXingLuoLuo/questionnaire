@@ -21,28 +21,33 @@
             src="../static/js/bootstrap-table_1.13.1_jquery.js"></script>
     <script th:src="@{/js/bootstrap-table_1.13.1_jquery_zh-CN.js}"
             src="../static/js/bootstrap-table_1.13.1_jquery_zh-CN.js"></script>
+    <script th:src="@{/js/questionnaire_answer_table.js}"
+            src="../static/js/questionnaire_answer_table.js"></script>
 </head>
 <body>
-<table id="data-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
-       data-search-align="left" data-show-refresh="true" data-url="../examples.json" data-method="get"
-       th:data-url="|/questionnaire_answer/table/questionnaire/${questionnaire.getId()}|">
-    <thead>
-    <tr>
-        <th data-field="grade" data-sortable="true">年级</th>
-        <th data-field="professional" data-sortable="true">专业</th>
-        <th data-sortable="true" data-field="curriculum-evaluation-1"
-            th:each="curriculum : ${questionnaire.getCurriculumList()}"
-            th:data-field="|curriculum-evaluation-${curriculum.getId()}|">对&nbsp;<span th:text="${curriculum.getName()}">化学课</span>&nbsp;的课程评价
-        </th>
-        <th data-sortable="true" data-field="teacher-evaluation-1"
-            th:each="teacher : ${questionnaire.getTeacherList()}"
-            th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
-        </th>
-        <th data-field="self-evaluation" data-sortable="true">对&nbsp;自己的&nbsp;评价</th>
-    </tr>
-    </thead>
-    <tbody>
-    </tbody>
-</table>
+<div class="table-div">
+    <table id="data-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
+           data-search-align="left" data-show-refresh="true" data-url="../examples.json" data-method="get"
+           th:data-url="|/questionnaire_answer/table/json/${questionnaire.getId()}|">
+        <thead>
+        <tr>
+            <th data-field="grade" title="grade" data-sortable="true">年级</th>
+            <th data-field="professional" data-sortable="true">专业</th>
+            <th data-sortable="true" data-field="curriculum-evaluation-1"
+                th:each="curriculum : ${questionnaire.getCurriculumList()}"
+                th:data-field="|curriculum-evaluation-${curriculum.getId()}|">对&nbsp;<span th:text="${curriculum.getName()}">化学课</span>&nbsp;的课程评价
+            </th>
+            <th data-sortable="true" data-field="teacher-evaluation-1"
+                th:each="teacher : ${questionnaire.getTeacherList()}"
+                th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
+            </th>
+            <th data-field="self-evaluation" data-sortable="true">学生自己成绩范围估计</th>
+            <th data-field="questionnaire-id" data-formatter="exportActionFormatter">导出全部问卷填写结果</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
