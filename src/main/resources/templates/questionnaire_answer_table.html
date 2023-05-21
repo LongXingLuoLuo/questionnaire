@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>问卷填写结果展示</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap_3.3.7_css_bootstrap.css}"
+          href="../static/css/bootstrap_3.3.7_css_bootstrap.css">
+    <script type="text/javascript" th:src="@{/js/jquery_2.1.1_jquery.js}"
+            src="../static/js/jquery_2.1.1_jquery.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
+            src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select_1.12.4_css_bootstrap.css}"
+          href="../static/css/bootstrap-select_1.12.4_css_bootstrap.css">
+    <script th:src="@{/js/bootstrap-select_1.12.4_jquery.js}"
+            src="../static/js/bootstrap-select_1.12.4_jquery.js"></script>
+    <script th:src="@{/js/bootstrap-select_1.12.4_jquery_zh-CN.js}"
+            src="../static/js/bootstrap-select_1.12.4_jquery_zh-CN.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table_1.13.1_css_bootstrap.css}"
+          href="../static/css/bootstrap-table_1.13.1_css_bootstrap.css">
+    <script th:src="@{/js/bootstrap-table_1.13.1_jquery.js}"
+            src="../static/js/bootstrap-table_1.13.1_jquery.js"></script>
+    <script th:src="@{/js/bootstrap-table_1.13.1_jquery_zh-CN.js}"
+            src="../static/js/bootstrap-table_1.13.1_jquery_zh-CN.js"></script>
+</head>
+<body>
+<table id="data-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
+       data-search-align="left" data-show-refresh="true" data-url="../examples.json" data-method="get"
+       th:data-url="|/questionnaire_answer/table/questionnaire/${questionnaire.getId()}|">
+    <thead>
+    <tr>
+        <th data-field="grade" data-sortable="true">年级</th>
+        <th data-field="professional" data-sortable="true">专业</th>
+        <th data-sortable="true" data-field="curriculum-evaluation-1"
+            th:each="curriculum : ${questionnaire.getCurriculumList()}"
+            th:data-field="|curriculum-evaluation-${curriculum.getId()}|">对&nbsp;<span th:text="${curriculum.getName()}">化学课</span>&nbsp;的课程评价
+        </th>
+        <th data-sortable="true" data-field="teacher-evaluation-1"
+            th:each="teacher : ${questionnaire.getTeacherList()}"
+            th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
+        </th>
+        <th data-field="self-evaluation" data-sortable="true">对&nbsp;自己的&nbsp;评价</th>
+    </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+</body>
+</html>

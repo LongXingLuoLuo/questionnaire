@@ -1,19 +1,20 @@
 package com.longxingluoluo.questionnaire;
 
 import com.alibaba.fastjson.JSONObject;
-import com.longxingluoluo.questionnaire.dao.CurriculumEvaluationDao;
-import com.longxingluoluo.questionnaire.dao.QuestionnaireAnswerDao;
 import com.longxingluoluo.questionnaire.entity.*;
 import com.longxingluoluo.questionnaire.service.*;
+import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@Log4j2
 @SpringBootTest
 class QuestionnaireApplicationTests {
+    private String TAG = "TEST: ";
 
     @Test
     void contextLoads() {
@@ -43,7 +44,8 @@ class QuestionnaireApplicationTests {
      */
     @Test
     void questionnaireAnswerDeleteTest() {
-        questionnaireAnswerService.deleteById(1L);
+//        questionnaireAnswerService.deleteById(1L);
+    curriculumService.deleteById(1L);
     }
 
     @Test
@@ -98,5 +100,13 @@ class QuestionnaireApplicationTests {
         questionnaire.setId(1L);
         int selfEvaluation = 10;
         questionnaireAnswerService.addNewByAll(questionnaire, grade, professional, curriculumEvaluationList, teacherEvaluationList, selfEvaluation);
+    }
+
+    @Test
+    void sortQuestionnaireAnswerByQuestionnaire(){
+        Questionnaire questionnaire = new Questionnaire();
+        questionnaire.setId(1L);
+        List<QuestionnaireAnswer> questionnaireAnswerList = questionnaireAnswerService.findAllByQuestionnaire(questionnaire);
+        log.info(JSONObject.toJSONString(questionnaireAnswerList));
     }
 }

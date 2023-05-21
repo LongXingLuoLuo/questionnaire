@@ -6,6 +6,7 @@ import com.longxingluoluo.questionnaire.entity.*;
 import com.longxingluoluo.questionnaire.service.QuestionnaireAnswerService;
 import com.longxingluoluo.questionnaire.service.QuestionnaireService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -68,7 +69,7 @@ public class QuestionnaireAnswerController {
         return jsonObject.toJSONString();
     }
 
-    @RequestMapping("/get/questionnaire/{id:\\d+}")
+    @RequestMapping("/table/questionnaire/{id:\\d+}")
     @ResponseBody
     public String getAllQuestionnaireAnswerByQuestionnaire(@PathVariable("id") Long id) {
         if (!questionnaireService.existsById(id)) {
@@ -82,8 +83,18 @@ public class QuestionnaireAnswerController {
         JSONArray jsonArray = new JSONArray();
         for (QuestionnaireAnswer questionnaireAnswer : questionnaireAnswerList) {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("professional", questionnaireAnswer.getProfessional().getName());
-            jsonObject.put("grade", questionnaireAnswer.getGrade().getName());
+            if (questionnaireAnswer.getProfessional() == null) {
+                jsonObject.put("professional", null);
+            } else {
+                jsonObject.put("professional", questionnaireAnswer.getProfessional().getName());
+            }
+
+            if (questionnaireAnswer.getGrade() == null) {
+                jsonObject.put("grade", null);
+            } else {
+                jsonObject.put("grade", questionnaireAnswer.getGrade().getName());
+            }
+
             for (CurriculumEvaluation curriculumEvaluation : questionnaireAnswer.curriculumEvaluationList) {
                 jsonObject.put("curriculum-evaluation-" + curriculumEvaluation.curriculum.getId(), curriculumEvaluation.getEvaluation());
             }
@@ -94,5 +105,16 @@ public class QuestionnaireAnswerController {
             jsonArray.add(jsonObject);
         }
         return jsonArray.toJSONString();
+    }
+
+    @RequestMapping("/table/{id:\\d+}")
+    public String showQuestionnaireAnswerTable(@PathVariable("id") Long id, Model model) {
+        Questionnaire questionnaire = questionnaireService.findById(id);
+        if (questionnaire == null){
+            return "error";
+        }
+        List<QuestionnaireAnswer> questionnaireAnswerList = new ArrayList<>();
+        model.addAttribute("questionnaire", questionnaire);
+        return "questionnaire_answer_table";
     }
 }
