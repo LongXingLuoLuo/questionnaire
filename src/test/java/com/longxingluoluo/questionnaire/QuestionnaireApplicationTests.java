@@ -14,7 +14,7 @@ import java.util.List;
 @Log4j2
 @SpringBootTest
 class QuestionnaireApplicationTests {
-    private String TAG = "TEST: ";
+    private final String TAG = "TEST: ";
 
     @Test
     void contextLoads() {
