@@ -19,6 +19,11 @@ function exportExcel(id) {
     window.location.href = "/questionnaire_answer/export/" + id;
 }
 
+function enterManagement() {
+    window.location.href = "/admin/management";
+}
+
+
 function exportActionFormatter(value, row, index) {
     let result = $("<div><a><span></span></a></div>");
     result.find("a").attr("href", "/questionnaire_answer/export/" + value)

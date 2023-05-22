@@ -22,12 +22,15 @@
 <div class="table-div">
     <div id="questionnaire-answer-toolbar" class="row">
         <div class="col-sm-12">
-            <button class="btn btn-info" th:onclick="|exportExcel(${questionnaire.getId()})|" title="导出为excel"><span class="glyphicon glyphicon-export"></span></button>
+            <button class="btn btn-info" th:onclick="|exportExcel(${questionnaire.getId()})|" title="导出为excel"><span
+                    class="glyphicon glyphicon-export"></span></button>
+            <button class="btn btn-info" onclick="enterManagement()" title="后台管理界面"><span
+                    class="glyphicon glyphicon-list"></span></button>
         </div>
     </div>
     <table id="questionnaire-answer-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
            data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
-           data-search-align="left" data-show-refresh="true" data-show-columns="true"
+           data-search-align="left" data-show-refresh="true"
            data-url="../examples/questionnaire_answer_examples.json" data-toolbar="#questionnaire-answer-toolbar"
            data-toolbar-align="right"
            data-method="get" th:data-url="|/questionnaire_answer/table/json/${questionnaire.getId()}|">
