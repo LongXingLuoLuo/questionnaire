@@ -10,6 +10,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -51,4 +52,23 @@ public class Questionnaire {
     @JsonIgnoreProperties
     @JSONField(serialize = false)
     public List<QuestionnaireAnswer> questionnaireAnswerList;
+
+    /**
+     * 获取问卷的填写链接
+     * @param request 访问请求
+     * @return 访问链接（主机:端口/链接）
+     */
+    public String getVisitUrl(HttpServletRequest request){
+        // 获取请求的主机名
+        String host = request.getServerName();
+
+        // 获取请求的端口号
+        int port = request.getServerPort();
+
+        if (id == null){
+            return "";
+        } else {
+            return host + ":" + port + "/questionnaire/visit/" + this.id;
+        }
+    }
 }
