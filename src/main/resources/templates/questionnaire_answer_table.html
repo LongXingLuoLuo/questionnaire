@@ -15,10 +15,12 @@
             src="../static/js/bootstrap-table_1.13.1_jquery.js"></script>
     <script th:src="@{/js/bootstrap-table_1.13.1_jquery_zh-CN.js}"
             src="../static/js/bootstrap-table_1.13.1_jquery_zh-CN.js"></script>
+    <link rel="stylesheet" th:href="@{/css/questionnaire_answer_table.css}"
+          href="../static/css/questionnaire_answer_table.css">
     <script th:src="@{/js/questionnaire_answer_table.js}"
             src="../static/js/questionnaire_answer_table.js"></script>
 </head>
-<body>
+<body class="container text-center">
 <div class="table-div">
     <div id="questionnaire-answer-toolbar" class="row">
         <div class="col-sm-12">
@@ -49,7 +51,7 @@
                     th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
             </th>
             <th data-field="self-evaluation" data-sortable="true">学生自己成绩范围估计</th>
-            <th data-field="id" data-formatter="deleteActionFormatter">删除</th>
+            <th data-field="id" data-formatter="deleteActionFormatter" data-width="40px" data-align="center">删除</th>
         </tr>
         </thead>
         <tbody>
