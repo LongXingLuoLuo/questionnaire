@@ -20,9 +20,9 @@ $(function () {
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(temp),
             success: function (message) {
-                message = JSON.parse(message);
                 if (message["msg"] === true){
                     alert("问卷添加成功");
+                    document.location.href = "/admin/manage";
                 } else {
                     alert("问卷添加失败");
                 }

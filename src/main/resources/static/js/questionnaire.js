@@ -110,7 +110,6 @@ $(function () {
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(data),
             success: function (message) {
-                message = JSON.parse(message);
                 if (message["msg"] === true){
                     alert("问卷填写提交成功");
                 } else {

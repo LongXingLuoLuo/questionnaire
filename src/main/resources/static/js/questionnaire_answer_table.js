@@ -3,7 +3,6 @@ function deleteAction(id) {
         url: "/questionnaire_answer/delete/" + id,
         type: "delete",
         success: function (message) {
-            message = JSON.parse(message);
             if (message["msg"] === true) {
                 $("#questionnaire-answer-table").bootstrapTable().bootstrapTable('refresh');
             } else {
@@ -16,10 +15,14 @@ function deleteAction(id) {
     })
 }
 
+function exportExcel(id) {
+    window.location.href = "/questionnaire_answer/export/" + id;
+}
+
 function exportActionFormatter(value, row, index) {
     let result = $("<div><a><span></span></a></div>");
     result.find("a").attr("href", "/questionnaire_answer/export/" + value)
-    result.find("a").addClass("btn btn-xs green")
+    result.find("a").addClass("btn btn-xs btn-success")
     result.find("span").addClass("glyphicon glyphicon-export")
     return result.html();
 }
@@ -27,7 +30,7 @@ function exportActionFormatter(value, row, index) {
 function deleteActionFormatter(value, row, index) {
     let result = $("<div><a><span></span></a></div>");
     result.find("a").attr("href", "javascript:;")
-    result.find("a").addClass("btn btn-xs green")
+    result.find("a").addClass("btn btn-xs btn-danger")
     result.find("a").attr("onclick", "deleteAction(" + value + ")")
     result.find("span").addClass("glyphicon glyphicon-remove")
     return result.html();
