@@ -1,5 +1,6 @@
 package com.longxingluoluo.questionnaire.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.longxingluoluo.questionnaire.entity.Curriculum;
 import com.longxingluoluo.questionnaire.service.CurriculumService;
@@ -20,7 +21,7 @@ public class CurriculumController {
     @Resource
     CurriculumService curriculumService;
 
-    @GetMapping("/get/all")
+    @GetMapping(value = "/get/all", produces = "application/json")
     @ResponseBody
     public String getAllCurriculums(){
         JSONObject jsonObject = new JSONObject();
@@ -28,7 +29,7 @@ public class CurriculumController {
         return jsonObject.toJSONString();
     }
 
-    @GetMapping("/get/{id:\\d+}")
+    @GetMapping(value = "/get/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String getCurriculums(@PathVariable("id") Long id){
         JSONObject jsonObject = new JSONObject();
@@ -47,11 +48,11 @@ public class CurriculumController {
             return jsonObject.toJSONString();
         }
         Curriculum curriculum = curriculumService.addNewByName(name);
-        jsonObject.put("curriculum", curriculum);
+        jsonObject.put("msg", curriculum != null);
         return jsonObject.toJSONString();
     }
 
-    @DeleteMapping(value = "/delete/{id:\\d+}")
+    @DeleteMapping(value = "/delete/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String deleteCurriculum(@PathVariable("id") Long id){
         JSONObject jsonObject = new JSONObject();
@@ -64,5 +65,11 @@ public class CurriculumController {
             jsonObject.put("msg", true);
         }
         return jsonObject.toJSONString();
+    }
+
+    @GetMapping(value = "/table/json/all", produces = "application/json")
+    @ResponseBody
+    public String getAllTableJson(){
+        return JSONArray.toJSONString(curriculumService.findAll());
     }
 }

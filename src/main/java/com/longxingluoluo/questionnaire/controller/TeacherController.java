@@ -1,5 +1,6 @@
 package com.longxingluoluo.questionnaire.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.longxingluoluo.questionnaire.entity.Teacher;
 import com.longxingluoluo.questionnaire.service.TeacherService;
@@ -20,7 +21,7 @@ public class TeacherController {
     @Resource
     TeacherService teacherService;
 
-    @GetMapping("/get/all")
+    @GetMapping(value = "/get/all", produces = "application/json")
     @ResponseBody
     public String getAllTeachers(){
         JSONObject jsonObject = new JSONObject();
@@ -28,7 +29,7 @@ public class TeacherController {
         return jsonObject.toJSONString();
     }
 
-    @GetMapping("/get/{id:\\d+}")
+    @GetMapping(value = "/get/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String getTeacher(@PathVariable("id") Long id){
         JSONObject jsonObject = new JSONObject();
@@ -47,11 +48,11 @@ public class TeacherController {
             return jsonObject.toJSONString();
         }
         Teacher teacher = teacherService.addNewByName(name);
-        jsonObject.put("teacher", teacher);
+        jsonObject.put("msg", teacher != null);
         return jsonObject.toJSONString();
     }
 
-    @DeleteMapping(value = "/delete/{id:\\d+}")
+    @DeleteMapping(value = "/delete/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String deleteTeacher(@PathVariable("id") Long id) {
         JSONObject jsonObject = new JSONObject();
@@ -64,5 +65,11 @@ public class TeacherController {
             jsonObject.put("msg", true);
         }
         return jsonObject.toJSONString();
+    }
+
+    @GetMapping(value = "/table/json/all", produces = "application/json")
+    @ResponseBody
+    public String getAllTableJson(){
+        return JSONArray.toJSONString(teacherService.findAll());
     }
 }

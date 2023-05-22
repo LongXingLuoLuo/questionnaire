@@ -1,5 +1,6 @@
 package com.longxingluoluo.questionnaire.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.longxingluoluo.questionnaire.entity.Grade;
 import com.longxingluoluo.questionnaire.service.GradeService;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Project questionnaire
@@ -26,7 +28,7 @@ public class GradeController {
      *
      * @return 全部的 grade
      */
-    @GetMapping(value = "/get/all")
+    @GetMapping(value = "/get/all", produces = "application/json")
     @ResponseBody
     public String allGrades() {
         JSONObject jsonObject = new JSONObject();
@@ -40,7 +42,7 @@ public class GradeController {
      * @param id 年级的 id
      * @return 获取指定 id 的年级的信息
      */
-    @GetMapping(value = "/get/{id:\\d+}")
+    @GetMapping(value = "/get/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String getGrade(@PathVariable("id") Long id) {
         JSONObject jsonObject = new JSONObject();
@@ -60,11 +62,11 @@ public class GradeController {
         JSONObject jsonObject = new JSONObject();
         String name = (String) jsonParam.get("name");
         if (name == null || name.trim().equals("")){    // name 为空
-            jsonObject.put("grade", null);
+            jsonObject.put("msg", false);
             return jsonObject.toJSONString();
         }
         Grade grade = gradeService.addNewByName(name);
-        jsonObject.put("grade", grade);
+        jsonObject.put("msg", grade != null);
         return jsonObject.toJSONString();
     }
 
@@ -74,7 +76,7 @@ public class GradeController {
      * @param id 需要删除的id
      * @return 成功信息
      */
-    @DeleteMapping(value = "/delete/{id:\\d+}")
+    @DeleteMapping(value = "/delete/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String deleteGrade(@PathVariable("id") Long id) {
         JSONObject jsonObject = new JSONObject();
@@ -88,5 +90,11 @@ public class GradeController {
             jsonObject.put("msg", true);
         }
         return jsonObject.toJSONString();
+    }
+
+    @GetMapping(value = "/table/json/all", produces = "application/json")
+    @ResponseBody
+    public String getAllTableJson(){
+        return JSONArray.toJSONString(gradeService.findAll());
     }
 }

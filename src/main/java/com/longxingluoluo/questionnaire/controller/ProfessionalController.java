@@ -1,5 +1,6 @@
 package com.longxingluoluo.questionnaire.controller;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.longxingluoluo.questionnaire.entity.Professional;
 import com.longxingluoluo.questionnaire.service.ProfessionalService;
@@ -20,7 +21,7 @@ public class ProfessionalController {
     @Resource
     ProfessionalService professionalService;
 
-    @GetMapping("/get/all")
+    @GetMapping(value = "/get/all", produces = "application/json")
     @ResponseBody
     public String getAllProfessionals(){
         JSONObject jsonObject = new JSONObject();
@@ -28,7 +29,7 @@ public class ProfessionalController {
         return jsonObject.toJSONString();
     }
 
-    @GetMapping("/get/{id:\\d+}")
+    @GetMapping(value = "/get/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String getProfessional(@PathVariable("id")Long id){
         JSONObject jsonObject = new JSONObject();
@@ -47,11 +48,11 @@ public class ProfessionalController {
             return jsonObject.toJSONString();
         }
         Professional professional = professionalService.addNewByName(name);
-        jsonObject.put("professional", professional);
+        jsonObject.put("msg", professional != null);
         return jsonObject.toJSONString();
     }
 
-    @DeleteMapping(value = "/delete/{id: \\d+}")
+    @DeleteMapping(value = "/delete/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String deleteProfessional(@PathVariable("id") Long id){
         JSONObject jsonObject = new JSONObject();
@@ -64,5 +65,11 @@ public class ProfessionalController {
             jsonObject.put("msg", true);
         }
         return jsonObject.toJSONString();
+    }
+
+    @GetMapping(value = "/table/json/all", produces = "application/json")
+    @ResponseBody
+    public String getAllTableJson(){
+        return JSONArray.toJSONString(professionalService.findAll());
     }
 }

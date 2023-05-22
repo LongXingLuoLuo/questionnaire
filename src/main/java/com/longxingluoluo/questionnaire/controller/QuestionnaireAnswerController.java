@@ -28,7 +28,7 @@ public class QuestionnaireAnswerController {
     @Resource
     QuestionnaireService questionnaireService;
 
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/add", produces = "application/json")
     @ResponseBody
     public String addNewQuestionnaireAnswer(@RequestBody JSONObject jsonParam) {
         System.out.println(jsonParam.toJSONString());
@@ -66,7 +66,6 @@ public class QuestionnaireAnswerController {
         QuestionnaireAnswer questionnaireAnswer = questionnaireAnswerService.addNewByAll(questionnaire, grade, professional, curriculumEvaluationList, teacherEvaluationList, selfEvaluation);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("msg", questionnaireAnswer != null);
-        System.out.println(jsonObject.toJSONString());
         return jsonObject.toJSONString();
     }
 
@@ -75,9 +74,9 @@ public class QuestionnaireAnswerController {
      * @param id 问卷 id
      * @return 问卷的所有填写结果的 json 格式
      */
-    @GetMapping("/table/json/{id:\\d+}")
+    @GetMapping(value = "/table/json/{id:\\d+}", produces = "application/json")
     @ResponseBody
-    public String getAllQuestionnaireAnswerByQuestionnaire(@PathVariable("id") Long id) {
+    public String getTableJsonByQuestionnaire(@PathVariable("id") Long id) {
         if (!questionnaireService.existsById(id)) {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("msg", false);
@@ -109,7 +108,6 @@ public class QuestionnaireAnswerController {
             }
             jsonObject.put("self-evaluation", questionnaireAnswer.getSelfEvaluation());
             jsonObject.put("id", questionnaireAnswer.getId());
-            jsonObject.put("questionnaire-id", questionnaire.getId());
             jsonArray.add(jsonObject);
         }
         return jsonArray.toJSONString();
@@ -126,7 +124,7 @@ public class QuestionnaireAnswerController {
         return "questionnaire_answer_table";
     }
 
-    @GetMapping("/export/{id:\\d+}")
+    @GetMapping(value = "/export/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public void exportByQuestionnaire(@PathVariable("id") Long id, HttpServletResponse response){
         if (!questionnaireService.existsById(id)){
@@ -141,7 +139,7 @@ public class QuestionnaireAnswerController {
         }
     }
 
-    @DeleteMapping("/delete/{id:\\d+}")
+    @DeleteMapping(value = "/delete/{id:\\d+}", produces = "application/json")
     @ResponseBody
     public String deleteQuestionnaireAnswerById(@PathVariable("id") Long id){
         JSONObject jsonObject = new JSONObject();
