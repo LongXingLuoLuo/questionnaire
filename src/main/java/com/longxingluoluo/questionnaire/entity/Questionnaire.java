@@ -68,7 +68,7 @@ public class Questionnaire {
         if (id == null){
             return "";
         } else {
-            return host + ":" + port + "/questionnaire/visit/" + this.id;
+            return host + ":" + port + "/visit/" + this.id;
         }
     }
 }
