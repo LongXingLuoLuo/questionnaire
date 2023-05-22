@@ -43,27 +43,6 @@ public class QuestionnaireController {
     }
 
     /**
-     * @param id 调查问卷的 id
-     * @return 调查问卷页面
-     */
-    @GetMapping(value = "/visit/{id:\\d+}")
-    public String visitQuestionnaire(@PathVariable("id")Long id, Model model){
-        Questionnaire questionnaire = questionnaireService.findById(id);
-        if (questionnaire == null) {
-            return "error";
-        }
-        model.addAttribute("questionnaire", questionnaire);
-        return "questionnaire";
-    }
-
-    @GetMapping(value = "/json/{id:\\d+}", produces = "application/json")
-    @ResponseBody
-    public String jsonById(@PathVariable("id") Long id){
-        Questionnaire questionnaire = questionnaireService.findById(id);
-        return JSONObject.toJSONString(questionnaire);
-    }
-
-    /**
      * 进入添加新的问卷界面
      * @param model 包含所有年级，专业，老师，课程
      * @return 添加新的问卷界面
