@@ -2,6 +2,7 @@ package com.longxingluoluo.questionnaire.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -29,16 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     /**
-     * web 访问配置
-     * @param web web 访问
-     */
-    @Override
-    public void configure(WebSecurity web) {
-//        web.ignoring().antMatchers("/questionnaire/**", "/js/**", "/css/**", "/images/**");
-        web.ignoring().antMatchers("/**");
-    }
-
-    /**
      * http 访问设置
      * @param http http 访问请求
      * @throws Exception 错误
@@ -46,20 +37,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login", "/doLogin", "/logout").permitAll()
+                .antMatchers("/js/**", "/css/**", "/images/**", "/fonts/**").permitAll()
+                .antMatchers("/index", "/visit/**", "/error", "/thanks","/login", "/doLogin", "/logout").permitAll()
+                .antMatchers(HttpMethod.POST, "/answer").permitAll()
                 .antMatchers("/admin/**").hasRole("admin")
+                .antMatchers("/grade/**", "/professional/**", "/curriculum/**", "/teacher/**", "/questionnaire/**", "/questionnaire_answer/**").hasRole("admin")
                 .anyRequest().authenticated();
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/doLogin")
                 .usernameParameter("username")
                 .passwordParameter("password")
-                .defaultSuccessUrl("/index")
+                .defaultSuccessUrl("/admin/management")
                 .failureUrl("/login")
                 .permitAll();
         http.rememberMe()
                 .alwaysRemember(true)
                 .key("123123");
+        http.logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login");
+        http.csrf().disable();
     }
 
     /**
@@ -70,6 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // admin 账号拥有 "admin" 权限
-        auth.inMemoryAuthentication().withUser("admin").password("USTB_admin").roles("admin");
+        auth.inMemoryAuthentication().withUser("admin").password("USTB_admin_").roles("admin");
     }
 }
