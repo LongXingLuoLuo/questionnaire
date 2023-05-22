@@ -105,13 +105,13 @@ $(function () {
         };
         console.log(JSON.parse(JSON.stringify(data)));
         $.ajax({
-            url: "/questionnaire_answer/add",
+            url: "/answer",
             type: "post",
             contentType: "application/json;charset=utf-8",
             data: JSON.stringify(data),
             success: function (message) {
                 if (message["msg"] === true){
-                    alert("问卷填写提交成功");
+                    window.location.href = "/thanks";
                 } else {
                     alert("问卷填写提交失败");
                 }
