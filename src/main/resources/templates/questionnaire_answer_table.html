@@ -20,23 +20,32 @@
 </head>
 <body>
 <div class="table-div">
-    <table id="questionnaire-answer-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true" data-striped="true"
-           data-search-align="left" data-show-refresh="true" data-url="../examples.json" data-method="get"
-           th:data-url="|/questionnaire_answer/table/json/${questionnaire.getId()}|">
+    <div id="questionnaire-answer-toolbar" class="row">
+        <div class="col-sm-12">
+            <button class="btn btn-info" th:onclick="|exportExcel(${questionnaire.getId()})|" title="导出为excel"><span class="glyphicon glyphicon-export"></span></button>
+        </div>
+    </div>
+    <table id="questionnaire-answer-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+           data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+           data-search-align="left" data-show-refresh="true" data-show-columns="true"
+           data-url="../examples/questionnaire_answer_examples.json" data-toolbar="#questionnaire-answer-toolbar"
+           data-toolbar-align="right"
+           data-method="get" th:data-url="|/questionnaire_answer/table/json/${questionnaire.getId()}|">
         <thead>
         <tr>
-            <th data-field="grade" title="grade" data-sortable="true">年级</th>
+            <th data-field="grade" data-sortable="true">年级</th>
             <th data-field="professional" data-sortable="true">专业</th>
             <th data-sortable="true" data-field="curriculum-evaluation-1"
                 th:each="curriculum : ${questionnaire.getCurriculumList()}"
-                th:data-field="|curriculum-evaluation-${curriculum.getId()}|">对&nbsp;<span th:text="${curriculum.getName()}">化学课</span>&nbsp;的课程评价
+                th:data-field="|curriculum-evaluation-${curriculum.getId()}|">对&nbsp;<span
+                    th:text="${curriculum.getName()}">化学课</span>&nbsp;的课程评价
             </th>
             <th data-sortable="true" data-field="teacher-evaluation-1"
                 th:each="teacher : ${questionnaire.getTeacherList()}"
-                th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
+                th:data-field="|teacher-evaluation-${teacher.getId()}|">对&nbsp;<span
+                    th:text="${teacher.getName()}">张xx</span>&nbsp;的教学评价
             </th>
             <th data-field="self-evaluation" data-sortable="true">学生自己成绩范围估计</th>
-            <th data-field="questionnaire-id" data-formatter="exportActionFormatter">导出全部</th>
             <th data-field="id" data-formatter="deleteActionFormatter">删除</th>
         </tr>
         </thead>
