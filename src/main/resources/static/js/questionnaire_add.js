@@ -7,6 +7,11 @@ $(function () {
     let curriculumSelect = $("#curriculumList-select");
 
     $("#submit-btn").click(function () {
+        if(nameInput.val() === null || nameInput.val().trim() === ""){
+            nameInput.val("")
+            nameInput.focus()
+            return;
+        }
         let temp = {
             "name": nameInput.val(),
             "gradeList": gradeSelect.val(),
@@ -22,7 +27,7 @@ $(function () {
             success: function (message) {
                 if (message["msg"] === true){
                     alert("问卷添加成功");
-                    document.location.href = "/admin/manage";
+                    document.location.href = "/admin/management";
                 } else {
                     alert("问卷添加失败");
                 }
