@@ -94,6 +94,7 @@
                     <source>1.8</source>
                     <target>1.8</target>
                     <encoding>UTF-8</encoding>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
             <plugin>
@@ -102,7 +103,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.longxingluoluo.questionnaire.QuestionnaireApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
