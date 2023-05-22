@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>感谢填写</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 500px;
+            height: 500px;
+            margin: 150px auto;
+        }
+        .box img{
+            width: 100%;
+            height: 100%;
+        }
+        .box .text{
+            text-align: center;
+            font-size: larger;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <img src="../static/images/thanks.png" alt="img" th:src="@{/images/thanks.png}">
+        <div class="text">问卷到此结束，感谢您的参与!</div>
+    </div>
+</body>
+</html>
