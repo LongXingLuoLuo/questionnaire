@@ -30,7 +30,7 @@ public class CurriculumEvaluation {
 
     public int evaluation;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @ToString.Exclude
     @JsonIgnoreProperties
     @JSONField(serialize = false)

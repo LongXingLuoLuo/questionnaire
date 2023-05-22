@@ -28,13 +28,13 @@ public class Teacher {
 
     public String name;
 
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "teacher")
     @ToString.Exclude
     @JsonIgnoreProperties
     @JSONField(serialize = false)
     public List<TeacherEvaluation> teacherEvaluationList;
 
-    @ManyToMany(mappedBy = "teacherList", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "teacherList")
     @ToString.Exclude
     @JsonIgnoreProperties
     @JSONField(serialize = false)

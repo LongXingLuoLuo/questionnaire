@@ -28,13 +28,13 @@ public class Grade {
 
     public String name;
 
-    @ManyToMany(mappedBy = "gradeList", cascade = CascadeType.REMOVE)
+    @ManyToMany(mappedBy = "gradeList")
     @ToString.Exclude
     @JsonIgnoreProperties
     @JSONField(serialize = false)
     public List<Questionnaire> questionnaireList;
 
-    @OneToMany(mappedBy = "grade", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "grade")
     @ToString.Exclude
     @JsonIgnoreProperties
     @JSONField(serialize = false)
