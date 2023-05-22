@@ -16,7 +16,7 @@ public class BasicController {
      * 登录界面
      * @return index.html
      */
-    @RequestMapping("/login")
+    @GetMapping("/login")
     public String loginPage(){
         return "login";
     }
@@ -28,5 +28,14 @@ public class BasicController {
     @GetMapping("index")
     public String indexPage(){
         return "index";
+    }
+
+    /**
+     * 后台管理界面
+     * @return management.html
+     */
+    @GetMapping("/admin/management")
+    public String managementPage(){
+        return "management";
     }
 }

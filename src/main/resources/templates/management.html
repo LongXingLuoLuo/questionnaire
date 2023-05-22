@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap_3.3.7_css_bootstrap.css}"
+          href="../static/css/bootstrap_3.3.7_css_bootstrap.css">
+    <script type="text/javascript" th:src="@{/js/jquery_2.1.1_jquery.js}"
+            src="../static/js/jquery_2.1.1_jquery.js"></script>
+    <script type="text/javascript" th:src="@{/js/bootstrap_3.3.7_js_bootstrap.js}"
+            src="../static/js/bootstrap_3.3.7_js_bootstrap.js"></script>
+    <link rel="stylesheet" th:href="@{/css/bootstrap-table_1.13.1_css_bootstrap.css}"
+          href="../static/css/bootstrap-table_1.13.1_css_bootstrap.css">
+    <script th:src="@{/js/bootstrap-table_1.13.1_jquery.js}"
+            src="../static/js/bootstrap-table_1.13.1_jquery.js"></script>
+    <script th:src="@{/js/bootstrap-table_1.13.1_jquery_zh-CN.js}"
+            src="../static/js/bootstrap-table_1.13.1_jquery_zh-CN.js"></script>
+    <link rel="stylesheet" th:href="@{/css/management.css}"
+          href="../static/css/management.css">
+    <script th:src="@{/js/management.js}"
+            src="../static/js/management.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="grade-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">年级管理</h3>
+        </div>
+        <div class="panel-body">
+            <div id="grade-toolbar" class="row">
+                <div class="col-sm-9">
+                    <input type="text" id="grade-name-input" class="form-control" placeholder="请输入年级名称，不可为空">
+                </div>
+                <div class="col-sm-3">
+                    <button id="grade-add-btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+                <label for="grade-name-input" class="control-label"></label>
+            </div>
+            <table id="grade-manage-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+                   data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+                   data-search-align="right" data-show-refresh="true" data-url="../examples/grade_examples.json"
+                   data-method="get" data-toolbar="#grade-toolbar"
+                   th:data-url="@{/grade/table/json/all}">
+                <thead>
+                <tr>
+                    <th data-field="name" data-sortable="true">年级</th>
+                    <th data-field="id" data-formatter="deleteGradeFormatter">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="professional-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">专业管理</h3>
+        </div>
+        <div class="panel-body">
+            <div id="professional-toolbar" class="row">
+                <div class="col-sm-9">
+                    <input type="text" id="professional-name-input" class="form-control" placeholder="请输入专业名称，不可为空">
+                </div>
+                <div class="col-sm-3">
+                    <button id="professional-add-btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+                <label for="professional-name-input" class="control-label"></label>
+            </div>
+            <table id="professional-manage-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+                   data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+                   data-search-align="right" data-show-refresh="true" data-url="../examples/grade_examples.json"
+                   data-method="get" data-toolbar="#professional-toolbar"
+                   th:data-url="@{/professional/table/json/all}">
+                <thead>
+                <tr>
+                    <th data-field="name" data-sortable="true">年级</th>
+                    <th data-field="id" data-formatter="deleteProfessionalFormatter">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="curriculum-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">课程管理</h3>
+        </div>
+        <div class="panel-body">
+            <div id="curriculum-toolbar" class="row">
+                <div class="col-sm-9">
+                    <input type="text" id="curriculum-name-input" class="form-control" placeholder="请输入课程名称，不可为空">
+                </div>
+                <div class="col-sm-3">
+                    <button id="curriculum-add-btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+                <label for="curriculum-name-input" class="control-label"></label>
+            </div>
+            <table id="curriculum-manage-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+                   data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+                   data-search-align="right" data-show-refresh="true" data-url="../examples/grade_examples.json"
+                   data-method="get" data-toolbar="#curriculum-toolbar"
+                   th:data-url="@{/curriculum/table/json/all}">
+                <thead>
+                <tr>
+                    <th data-field="name" data-sortable="true">年级</th>
+                    <th data-field="id" data-formatter="deleteCurriculumFormatter">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="teacher-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">教师管理</h3>
+        </div>
+        <div class="panel-body">
+            <div id="teacher-toolbar" class="row">
+                <div class="col-sm-9">
+                    <input type="text" id="teacher-name-input" class="form-control" placeholder="请输入教师名称，不可为空">
+                </div>
+                <div class="col-sm-3">
+                    <button id="teacher-add-btn" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
+                </div>
+                <label for="teacher-name-input" class="control-label"></label>
+            </div>
+            <table id="teacher-manage-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+                   data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+                   data-search-align="right" data-show-refresh="true" data-url="../examples/grade_examples.json"
+                   data-method="get" data-toolbar="#teacher-toolbar"
+                   th:data-url="@{/teacher/table/json/all}">
+                <thead>
+                <tr>
+                    <th data-field="name" data-sortable="true">年级</th>
+                    <th data-field="id" data-formatter="deleteTeacherFormatter">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+    <div class="questionnaire-panel panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">问卷管理</h3>
+        </div>
+        <div class="panel-body">
+            <div id="questionnaire-toolbar" class="row">
+                <div class="col-lg-12">
+                    <a id="questionnaire-add-btn" href="/questionnaire/add" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></a>
+                </div>
+            </div>
+            <table id="questionnaire-manage-table" data-toggle="table" class="table table-hover text-nowrap" data-search="true"
+                   data-striped="true" data-pagination="true" data-side-pagination="client" data-page-size="10"
+                   data-search-align="right" data-show-refresh="true" data-url="../examples/questionnaire_examples.json"
+                   data-method="get" data-toolbar="#questionnaire-toolbar"
+                   th:data-url="@{/questionnaire/table/json/all}">
+                <thead>
+                <tr>
+                    <th data-field="name" data-sortable="true">年级</th>
+                    <th data-field="visit-url" data-formatter="visitUrlFormatter">复制问卷链接</th>
+                    <th data-field="answer-url" data-formatter="answerUrlFormatter">查看问卷填写结果</th>
+                    <th data-field="id" data-formatter="deleteQuestionnaireFormatter">删除</th>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
