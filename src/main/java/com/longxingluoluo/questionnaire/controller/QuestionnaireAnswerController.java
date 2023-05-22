@@ -28,47 +28,6 @@ public class QuestionnaireAnswerController {
     @Resource
     QuestionnaireService questionnaireService;
 
-    @PostMapping(value = "/add", produces = "application/json")
-    @ResponseBody
-    public String addNewQuestionnaireAnswer(@RequestBody JSONObject jsonParam) {
-        System.out.println(jsonParam.toJSONString());
-        Questionnaire questionnaire = new Questionnaire();
-        questionnaire.setId(jsonParam.getLong("questionnaireId"));
-
-        Grade grade = new Grade();
-        grade.setId(jsonParam.getLong("gradeId"));
-
-        Professional professional = new Professional();
-        professional.setId(jsonParam.getLong("professionalId"));
-
-        JSONArray curriculumEvaluationJSONArray = jsonParam.getJSONArray("curriculumEvaluationList");
-        List<CurriculumEvaluation> curriculumEvaluationList = new ArrayList<>();
-        for (Object o : curriculumEvaluationJSONArray) {
-            CurriculumEvaluation curriculumEvaluation = new CurriculumEvaluation();
-            curriculumEvaluation.setEvaluation(((JSONObject) o).getInteger("evaluation"));
-            Curriculum curriculum = new Curriculum();
-            curriculum.setId(((JSONObject) o).getLong("id"));
-            curriculumEvaluation.setCurriculum(curriculum);
-            curriculumEvaluationList.add(curriculumEvaluation);
-        }
-
-        JSONArray teacherEvaluationJSONArray = jsonParam.getJSONArray("teacherEvaluationList");
-        List<TeacherEvaluation> teacherEvaluationList = new ArrayList<>();
-        for (Object o : teacherEvaluationJSONArray) {
-            TeacherEvaluation teacherEvaluation = new TeacherEvaluation();
-            teacherEvaluation.setEvaluation(((JSONObject) o).getInteger("evaluation"));
-            Teacher teacher = new Teacher();
-            teacher.setId(((JSONObject) o).getLong("id"));
-            teacherEvaluation.setTeacher(teacher);
-            teacherEvaluationList.add(teacherEvaluation);
-        }
-        int selfEvaluation = jsonParam.getInteger("selfEvaluation");
-        QuestionnaireAnswer questionnaireAnswer = questionnaireAnswerService.addNewByAll(questionnaire, grade, professional, curriculumEvaluationList, teacherEvaluationList, selfEvaluation);
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("msg", questionnaireAnswer != null);
-        return jsonObject.toJSONString();
-    }
-
     /**
      * 为 bootstrap-table 提供的数据接口
      * @param id 问卷 id
