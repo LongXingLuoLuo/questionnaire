@@ -109,4 +109,9 @@ class QuestionnaireApplicationTests {
         List<QuestionnaireAnswer> questionnaireAnswerList = questionnaireAnswerService.findAllByQuestionnaire(questionnaire);
         log.info(JSONObject.toJSONString(questionnaireAnswerList));
     }
+
+    @Test
+    void questionnaireDelete(){
+        questionnaireService.deleteById(5L);
+    }
 }
