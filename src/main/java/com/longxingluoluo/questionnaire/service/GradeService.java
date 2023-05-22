@@ -1,7 +1,11 @@
 package com.longxingluoluo.questionnaire.service;
 
 import com.longxingluoluo.questionnaire.dao.GradeDao;
+import com.longxingluoluo.questionnaire.dao.QuestionnaireAnswerDao;
+import com.longxingluoluo.questionnaire.dao.QuestionnaireDao;
 import com.longxingluoluo.questionnaire.entity.Grade;
+import com.longxingluoluo.questionnaire.entity.Questionnaire;
+import com.longxingluoluo.questionnaire.entity.QuestionnaireAnswer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,10 @@ import java.util.List;
 public class GradeService {
     @Resource
     GradeDao gradeDao;
+    @Resource
+    QuestionnaireAnswerDao questionnaireAnswerDao;
+    @Resource
+    QuestionnaireDao questionnaireDao;
 
     /**
      * 添加新的 grade
@@ -60,6 +68,20 @@ public class GradeService {
      * @param id 需要删除的 grade 的 id
      */
     public void deleteById(Long id) {
+        Grade grade = gradeDao.findById(id);
+        if (grade == null){
+            return;
+        }
+        for (QuestionnaireAnswer questionnaireAnswer:
+             grade.questionnaireAnswerList) {
+            questionnaireAnswer.setGrade(null);
+            questionnaireAnswerDao.save(questionnaireAnswer);
+        }
+        for (Questionnaire questionnaire:
+             grade.getQuestionnaireList()) {
+            questionnaire.getGradeList().remove(grade);
+            questionnaireDao.save(questionnaire);
+        }
         gradeDao.deleteById(id);
     }
 

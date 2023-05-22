@@ -1,7 +1,11 @@
 package com.longxingluoluo.questionnaire.service;
 
+import com.longxingluoluo.questionnaire.dao.QuestionnaireDao;
 import com.longxingluoluo.questionnaire.dao.TeacherDao;
+import com.longxingluoluo.questionnaire.entity.Questionnaire;
+import com.longxingluoluo.questionnaire.entity.QuestionnaireAnswer;
 import com.longxingluoluo.questionnaire.entity.Teacher;
+import com.longxingluoluo.questionnaire.entity.TeacherEvaluation;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,8 @@ import java.util.List;
 public class TeacherService {
     @Resource
     TeacherDao teacherDao;
+    @Resource
+    QuestionnaireDao questionnaireDao;
 
     @Transactional(readOnly = true)
     public Teacher findById(Long id) {
@@ -38,6 +44,25 @@ public class TeacherService {
     }
 
     public void deleteById(Long id) {
+        if (id == null){
+            return;
+        }
+        Teacher teacher = teacherDao.findById(id);
+        if (teacher == null){
+            return;
+        }
+        for (Questionnaire questionnaire : teacher.getQuestionnaireList()) {
+            questionnaire.getTeacherList().remove(teacher);
+            questionnaireDao.save(questionnaire);
+        }
+        for (TeacherEvaluation teacherEvaluation : teacher.getTeacherEvaluationList()) {
+            teacherEvaluation.setTeacher(null);
+            teacherEvaluation.setQuestionnaireAnswer(null);
+            QuestionnaireAnswer questionnaireAnswer = teacherEvaluation.getQuestionnaireAnswer();
+            if (questionnaireAnswer != null){
+                questionnaireAnswer.getTeacherEvaluationList().remove(teacherEvaluation);
+            }
+        }
         teacherDao.deleteById(id);
     }
 

@@ -1,7 +1,11 @@
 package com.longxingluoluo.questionnaire.service;
 
 import com.longxingluoluo.questionnaire.dao.ProfessionalDao;
+import com.longxingluoluo.questionnaire.dao.QuestionnaireAnswerDao;
+import com.longxingluoluo.questionnaire.dao.QuestionnaireDao;
 import com.longxingluoluo.questionnaire.entity.Professional;
+import com.longxingluoluo.questionnaire.entity.Questionnaire;
+import com.longxingluoluo.questionnaire.entity.QuestionnaireAnswer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +21,10 @@ import java.util.List;
 public class ProfessionalService {
     @Resource
     ProfessionalDao professionalDao;
+    @Resource
+    QuestionnaireAnswerDao questionnaireAnswerDao;
+    @Resource
+    QuestionnaireDao questionnaireDao;
 
     public Professional addNewByName(String name) {
         Professional professional = new Professional();
@@ -35,6 +43,18 @@ public class ProfessionalService {
     }
 
     public void deleteById(Long id) {
+        Professional professional = professionalDao.findById(id);
+        if (professional == null){
+            return;
+        }
+        for (QuestionnaireAnswer questionnaireAnswer: professional.questionnaireAnswerList) {
+            questionnaireAnswer.setProfessional(null);
+            questionnaireAnswerDao.save(questionnaireAnswer);
+        }
+        for (Questionnaire questionnaire: professional.getQuestionnaireList()) {
+            questionnaire.getProfessionalList().remove(professional);
+            questionnaireDao.save(questionnaire);
+        }
         professionalDao.deleteById(id);
     }
 
