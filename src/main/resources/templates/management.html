@@ -43,8 +43,8 @@
                    th:data-url="@{/grade/table/json/all}">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true">年级</th>
-                    <th data-field="id" data-formatter="deleteGradeFormatter">删除</th>
+                    <th data-field="name" data-sortable="true">年级名称</th>
+                    <th data-field="id" data-formatter="deleteGradeFormatter" data-width="40px" data-align="center">删除</th>
                 </tr>
                 </thead>
             </table>
@@ -71,8 +71,8 @@
                    th:data-url="@{/professional/table/json/all}">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true">年级</th>
-                    <th data-field="id" data-formatter="deleteProfessionalFormatter">删除</th>
+                    <th data-field="name" data-sortable="true">专业名称</th>
+                    <th data-field="id" data-formatter="deleteProfessionalFormatter" data-width="40px" data-align="center">删除</th>
                 </tr>
                 </thead>
             </table>
@@ -99,8 +99,8 @@
                    th:data-url="@{/curriculum/table/json/all}">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true">年级</th>
-                    <th data-field="id" data-formatter="deleteCurriculumFormatter">删除</th>
+                    <th data-field="name" data-sortable="true">课程名称</th>
+                    <th data-field="id" data-formatter="deleteCurriculumFormatter" data-width="40px" data-align="center">删除</th>
                 </tr>
                 </thead>
             </table>
@@ -127,8 +127,8 @@
                    th:data-url="@{/teacher/table/json/all}">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true">年级</th>
-                    <th data-field="id" data-formatter="deleteTeacherFormatter">删除</th>
+                    <th data-field="name" data-sortable="true">教师名称</th>
+                    <th data-field="id" data-formatter="deleteTeacherFormatter" data-width="40px" data-align="center">删除</th>
                 </tr>
                 </thead>
             </table>
@@ -152,10 +152,10 @@
                    th:data-url="@{/questionnaire/table/json/all}">
                 <thead>
                 <tr>
-                    <th data-field="name" data-sortable="true">年级</th>
-                    <th data-field="visit-url" data-formatter="visitUrlFormatter">复制问卷链接</th>
-                    <th data-field="answer-url" data-formatter="answerUrlFormatter">查看问卷填写结果</th>
-                    <th data-field="id" data-formatter="deleteQuestionnaireFormatter">删除</th>
+                    <th data-field="name" data-sortable="true">问卷名称</th>
+                    <th data-field="visit-url" data-formatter="visitUrlFormatter" data-width="40px" data-align="center">复制问卷链接</th>
+                    <th data-field="answer-url" data-formatter="answerUrlFormatter" data-width="40px" data-align="center">问卷填写结果</th>
+                    <th data-field="id" data-formatter="deleteQuestionnaireFormatter" data-width="40px" data-align="center">删除</th>
                 </tr>
                 </thead>
             </table>
