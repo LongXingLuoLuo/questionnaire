@@ -37,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
+                .antMatchers("*.js", "*.css", "*.png", "*.jpg", "*.ico", "*.ttf", "*.woff", "*.woff2", "*.eot").permitAll()
                 .antMatchers("/js/**", "/css/**", "/images/**", "/fonts/**").permitAll()
                 .antMatchers("/index", "/visit/**", "/error", "/thanks","/login", "/doLogin", "/logout").permitAll()
                 .antMatchers(HttpMethod.POST, "/answer").permitAll()
