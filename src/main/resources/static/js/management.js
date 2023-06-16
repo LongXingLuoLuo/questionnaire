@@ -123,18 +123,32 @@ function deleteQuestionnaireFormatter(value, row, index) {
     return result.html();
 }
 
-function copyToClip(value) {
-    navigator.clipboard.writeText(value)
-        .catch(function (err) {
-            console.error('Failed to copy text: ', err);
-        });
+function copyToClip(val)     {
+
+    if (navigator.clipboard && window.isSecureContext) {
+        // navigator clipboard 向剪贴板写文本
+        return navigator.clipboard.writeText(val)
+    } else {
+        // 创建text area
+        const textArea = document.createElement('textarea')
+        textArea.value = val
+        // 使text area不在viewport，同时设置不可见
+        document.body.appendChild(textArea)
+        textArea.focus()
+        textArea.select()
+        return new Promise((res, rej) => {
+            // 执行复制命令并移除文本框
+            document.execCommand('copy') ? res() : rej()
+            textArea.remove()
+        })
+    }
 }
 
 function visitUrlFormatter(value, row, index) {
     let result = $("<div><a><span></span></a></div>");
     result.find("a").attr("href", "javascript:;");
     result.find("a").addClass("btn btn-xs btn-default");
-    result.find("a").attr("onclick", "copyToClip(\"" + value + "\")")
+    result.find("a").attr("onclick", "copyToClip('" + value + "')")
     result.find("span").addClass("glyphicon glyphicon-copy");
     return result.html();
 }
